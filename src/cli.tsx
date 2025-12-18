@@ -1,6 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-
 import React, { useEffect, useMemo, useState } from 'react'
 import { render, Text } from 'ink'
 
@@ -104,13 +103,12 @@ async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Prom
     written.push(p)
   }
 
-  const html = await renderHtml(resume, {
-    summaryKey: args.summaryKey,
-    roleKey: args.roleKey,
-    templatePath: args.template,
-  })
-
   if (args.formats.includes('html')) {
+    const html = await renderHtml(resume, {
+      summaryKey: args.summaryKey,
+      roleKey: args.roleKey,
+      templatePath: args.template,
+    })
     const p = outPath(outDir, baseName, 'html')
     await writeFile(p, html, 'utf8')
     written.push(p)
@@ -188,5 +186,3 @@ function App({ argv }: { argv: string[] }) {
 export function runCli(argv = process.argv.slice(2)) {
   render(<App argv={argv} />)
 }
-
-runCli()

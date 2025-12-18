@@ -42,9 +42,28 @@ export async function renderHtml(
   Handlebars.registerHelper('join', join)
   Handlebars.registerHelper('eq', eq)
 
-  const defaultTemplatePath = path.resolve(__dirname, '../../templates/resume.hbs')
-  const templatePath = options.templatePath ?? defaultTemplatePath
-  const template = await readFile(templatePath, 'utf8')
+  const template = await (async () => {
+    const candidates = options.templatePath
+      ? [options.templatePath]
+      : [
+          // Unbundled (src/resume -> repo root/templates)
+          path.resolve(__dirname, '../../templates/resume.hbs'),
+          // Bundled (dist -> repo root/templates)
+          path.resolve(__dirname, '../templates/resume.hbs'),
+          // Fallback: current working directory
+          path.resolve(process.cwd(), 'templates/resume.hbs'),
+        ]
+
+    for (const p of candidates) {
+      try {
+        return await readFile(p, 'utf8')
+      } catch {
+        // continue
+      }
+    }
+
+    throw new Error('Could not find a default template. Provide one with --template.')
+  })()
 
   const summary =
     resume.summaries[options.summaryKey] ??

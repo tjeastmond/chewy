@@ -1,0 +1,81 @@
+TJ Eastmond
+Senior Software Engineer & Technical Leader
+
+CONTACT
+Email: tj.eastmond@gmail.com
+Phone: 732-983-8789
+Location: New Jersey
+LinkedIn: https://linkedin.com/in/tjeastmond
+GitHub: https://github.com/tjeastmond
+
+SUMMARY
+Product-minded Senior Software Engineer and engineering leader with nearly 20 years of experience designing, building, and operating scalable platforms, APIs, and data systems. Brings deep hands-on expertise across backend systems, data engineering, and modern JavaScript architectures, with a track record of technical ownership, cross-functional leadership, and delivery of complex initiatives from concept to production.
+
+SKILLS
+Languages & Frameworks: TypeScript | JavaScript | Node.js | Next.js | React | React Native | Express | Python | FastAPI | Flask
+Backend & Infrastructure: AWS | Docker | Serverless | REST APIs | Microservices | CI/CD | GitHub Actions
+Databases & Data: Postgres | MySQL | MariaDB | MongoDB | DynamoDB | Snowflake | SQL | dbt | Airflow
+Tools & Platforms: Vercel | Stripe | Jest | Metabase | Datadog | Git | Cursor | Claude Code | ChatGPT | GitHub Copilot
+
+EXPERIENCE
+ADP / Sora — Lead Senior Engineer
+Apr 2025 – Present / Remote (Contract)
+- Leading large-scale refactors of a mission-critical employment onboarding platform, improving modularity, fault isolation, and long-term maintainability
+- Driving architectural redesigns by authoring RFCs and technical proposals for complex feature rewrites and system-wide changes
+- Decomposing legacy monolithic services into clearer, service-oriented components with well-defined ownership boundaries
+- Introducing and standardizing TypeScript across backend services to improve type safety, correctness, and developer velocity
+- Partnering with stakeholders across engineering and product to align technical direction with evolving business requirements
+- Leveraging AI-assisted development tools to accelerate refactoring, test scaffolding, and technical documentation while maintaining code quality standards
+
+Yogi — Senior Engineer
+Nov 2023 – Mar 2024 / Remote
+- Designed and built reusable frontend components and backend TypeScript APIs integrating multiple internal services and third-party systems
+- Implemented and optimized SQL queries and Python-based data processing to reduce load on Postgres and improve dashboard responsiveness
+- Improved schema design, indexing strategies, and query patterns to support reliability, performance, and long-term maintainability
+- Collaborated closely with product, data, and engineering partners to translate requirements into scalable technical solutions
+
+Lunchbox — Senior Engineering Manager / Senior Staff Engineer
+Apr 2021 – Jul 2023 / Remote
+- Led modernization of high-traffic client-facing ordering platforms by migrating systems to TypeScript, Next.js, and Vercel
+- Owned the design and delivery of real-time ETL pipelines using Python, dbt, Airflow, and Snowflake to support analytics and reporting
+- Designed and implemented event-driven architectures to replicate operational data into analytics systems with minimal latency
+- Refactored payment processing and menu synchronization into scalable, feature-focused services with clear ownership boundaries
+- Partnered closely with product, design, and business leaders to plan and deliver complex cross-functional initiatives
+- Established development standards and CI/CD improvements to increase delivery quality, consistency, and team velocity
+
+DriveWealth — Principal Software Engineer / Engineering Manager
+Jan 2020 – Feb 2021 / Remote
+- Led development of high-performance Node.js and TypeScript APIs powering customer-facing trading dashboards and internal platforms
+- Owned authentication and authorization services using AWS Cognito, Lambda, and DynamoDB, with responsibility for reliability and security
+- Balanced hands-on development with technical leadership, mentoring engineers and guiding architectural decisions
+- Prioritized and coordinated platform-level initiatives to support new features and reduce operational risk
+- Built internal tools to improve operational efficiency, observability, and support workflows
+
+Rubicon Project / Magnite — Senior Software Engineer
+Jun 2019 – Jan 2020 / Remote
+- Contributed to the open-source Prebid.js project
+- Refactored legacy JavaScript to improve maintainability and adopt functional programming patterns
+- Mentored junior engineers through pair programming and code reviews
+
+Barkly Pets — Senior Software Engineer
+Oct 2018 – Jun 2019 / Remote
+- Improved REST APIs and database queries to increase application performance
+- Refactored React Native applications to improve stability and user experience
+
+NYSHEX — Principal Software Engineer
+Jun 2018 – Sep 2018 / New York, NY
+- Established JavaScript engineering standards and led migration from Angular to React and Redux
+
+iCIMS — Lead Software Engineer
+Oct 2015 – Jan 2018 / Holmdel, New Jersey
+- Engineered the company’s first large-scale data pipelines using Databricks, Scala, and Spark
+- Led migration of the codebase to Git and established release workflows across teams
+
+Jirafe — Director of Software Engineering
+Nov 2013 – Oct 2015 / New York, NY
+
+SPIN Magazine — Lead Software Engineer
+Nov 2011 – Oct 2013 / SoHo, New York, NY
+
+eFashion Solutions — Director of Software Development
+Sep 2004 – Oct 2011 / Secaucus, New Jersey

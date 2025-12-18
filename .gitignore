@@ -15,6 +15,9 @@ jspm_packages/
 dist/
 build/
 
+# Test output
+out/
+
 # Runtime data
 pids/
 *.pid

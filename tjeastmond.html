@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-summary="default" data-role="staffplus">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TJ Eastmond - Resume</title>
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 40px;
+      color: #000;
+      line-height: 1.4;
+      background: #fff;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 48px; margin: 0 0 4px 0; letter-spacing: 0.5px; }
+    .tagline { font-size: 14px; margin-bottom: 6px; }
+    .contact { font-size: 14px; margin-bottom: 26px; }
+    .contact a { color: rgba(33, 121, 199, 1); text-decoration: none; }
+    .section-title {
+      font-weight: bold;
+      color: rgba(33, 121, 199, 1);
+      letter-spacing: 0.5px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .skills { font-size: 14px; margin-bottom: 18px; }
+    .skill-group-row { margin-bottom: 6px; }
+    .skill-group-label { font-weight: bold; }
+    .summary { font-size: 15px; margin-bottom: 18px; }
+    .job { margin-bottom: 18px; break-inside: avoid; page-break-inside: avoid; }
+    .job-title { font-weight: bold; font-size: 18px; }
+    .job-meta { font-size: 13px; text-transform: uppercase; color: #444; margin-bottom: 8px; }
+    ul { margin-top: 6px; padding-left: 22px; }
+    li { margin-bottom: 6px; font-size: 14px; }
+    .page-break { page-break-before: always; break-before: page; }
+
+    @media print {
+      @page { size: letter; margin: 0.5in 0.5in 0.55in; }
+      body { margin: 0; }
+      .container { max-width: none; }
+      h1 { font-size: 41px; }
+      .contact { margin-bottom: 18px; }
+      .section-title { margin-top: 14px; margin-bottom: 6px; }
+      .skills { font-size: 13px; margin-bottom: 10px; }
+      .skill-group-row { margin-bottom: 3px; }
+      .summary { font-size: 14px; margin-bottom: 10px; }
+      .job { margin-bottom: 10px; break-inside: auto; page-break-inside: auto; }
+      .job-title { font-size: 16px; }
+      .job-meta { font-size: 12px; margin-bottom: 4px; }
+      li { font-size: 13px; margin-bottom: 3px; }
+      ul { margin-top: 3px; }
+      a { color: rgba(33, 121, 199, 1); text-decoration: none; }
+      .section-title { break-after: avoid; page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TJ Eastmond</h1>
+    <div class="tagline">Senior Software Engineer &amp; Technical Leader</div>
+    <div class="contact">
+      tj.eastmond@gmail.com &nbsp;|&nbsp; 732-983-8789 &nbsp;|&nbsp; New Jersey &nbsp;|&nbsp;
+      <a href="https://linkedin.com/in/tjeastmond">linkedin.com/in/tjeastmond</a>
+      &nbsp;|&nbsp;
+      <a href="https://github.com/tjeastmond">github.com/tjeastmond</a>
+    </div>
+
+    <div class="section-title">SKILLS</div>
+    <div class="skills">
+        <div class="skill-group-row">
+          <span class="skill-group-label">Languages &amp; Frameworks:</span>
+          TypeScript | JavaScript | Node.js | Next.js | React | React Native | Express | Python | FastAPI | Flask
+        </div>
+        <div class="skill-group-row">
+          <span class="skill-group-label">Backend &amp; Infrastructure:</span>
+          AWS | Docker | Serverless | REST APIs | Microservices | CI/CD | GitHub Actions
+        </div>
+        <div class="skill-group-row">
+          <span class="skill-group-label">Databases &amp; Data:</span>
+          Postgres | MySQL | MariaDB | MongoDB | DynamoDB | Snowflake | SQL | dbt | Airflow
+        </div>
+        <div class="skill-group-row">
+          <span class="skill-group-label">Tools &amp; Platforms:</span>
+          Vercel | Stripe | Jest | Metabase | Datadog | Git | Cursor | Claude Code | ChatGPT | GitHub Copilot
+        </div>
+    </div>
+
+    <div class="section-title">SUMMARY</div>
+    <div class="summary">
+      Product-minded Senior Software Engineer and engineering leader with nearly 20 years of experience designing, building, and operating scalable platforms, APIs, and data systems. Brings deep hands-on expertise across backend systems, data engineering, and modern JavaScript architectures, with a track record of technical ownership, cross-functional leadership, and delivery of complex initiatives from concept to production.
+    </div>
+
+    <div class="section-title">EXPERIENCE</div>
+
+      <div class="job">
+        <div class="job-title">ADP / Sora — Lead Senior Engineer</div>
+        <div class="job-meta">Apr 2025 – Present / Remote (Contract)</div>
+          <ul>
+              <li>Leading large-scale refactors of a mission-critical employment onboarding platform, improving modularity, fault isolation, and long-term maintainability</li>
+              <li>Driving architectural redesigns by authoring RFCs and technical proposals for complex feature rewrites and system-wide changes</li>
+              <li>Decomposing legacy monolithic services into clearer, service-oriented components with well-defined ownership boundaries</li>
+              <li>Introducing and standardizing TypeScript across backend services to improve type safety, correctness, and developer velocity</li>
+              <li>Partnering with stakeholders across engineering and product to align technical direction with evolving business requirements</li>
+              <li>Leveraging AI-assisted development tools to accelerate refactoring, test scaffolding, and technical documentation while maintaining code quality standards</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">Yogi — Senior Engineer</div>
+        <div class="job-meta">Nov 2023 – Mar 2024 / Remote</div>
+          <ul>
+              <li>Designed and built reusable frontend components and backend TypeScript APIs integrating multiple internal services and third-party systems</li>
+              <li>Implemented and optimized SQL queries and Python-based data processing to reduce load on Postgres and improve dashboard responsiveness</li>
+              <li>Improved schema design, indexing strategies, and query patterns to support reliability, performance, and long-term maintainability</li>
+              <li>Collaborated closely with product, data, and engineering partners to translate requirements into scalable technical solutions</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">Lunchbox — Senior Engineering Manager / Senior Staff Engineer</div>
+        <div class="job-meta">Apr 2021 – Jul 2023 / Remote</div>
+          <ul>
+              <li>Led modernization of high-traffic client-facing ordering platforms by migrating systems to TypeScript, Next.js, and Vercel</li>
+              <li>Owned the design and delivery of real-time ETL pipelines using Python, dbt, Airflow, and Snowflake to support analytics and reporting</li>
+              <li>Designed and implemented event-driven architectures to replicate operational data into analytics systems with minimal latency</li>
+              <li>Refactored payment processing and menu synchronization into scalable, feature-focused services with clear ownership boundaries</li>
+              <li>Partnered closely with product, design, and business leaders to plan and deliver complex cross-functional initiatives</li>
+              <li>Established development standards and CI/CD improvements to increase delivery quality, consistency, and team velocity</li>
+          </ul>
+      </div>
+      <div class="page-break"></div>
+      <div class="job">
+        <div class="job-title">DriveWealth — Principal Software Engineer / Engineering Manager</div>
+        <div class="job-meta">Jan 2020 – Feb 2021 / Remote</div>
+          <ul>
+              <li>Led development of high-performance Node.js and TypeScript APIs powering customer-facing trading dashboards and internal platforms</li>
+              <li>Owned authentication and authorization services using AWS Cognito, Lambda, and DynamoDB, with responsibility for reliability and security</li>
+              <li>Balanced hands-on development with technical leadership, mentoring engineers and guiding architectural decisions</li>
+              <li>Prioritized and coordinated platform-level initiatives to support new features and reduce operational risk</li>
+              <li>Built internal tools to improve operational efficiency, observability, and support workflows</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">Rubicon Project / Magnite — Senior Software Engineer</div>
+        <div class="job-meta">Jun 2019 – Jan 2020 / Remote</div>
+          <ul>
+              <li>Contributed to the open-source Prebid.js project</li>
+              <li>Refactored legacy JavaScript to improve maintainability and adopt functional programming patterns</li>
+              <li>Mentored junior engineers through pair programming and code reviews</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">Barkly Pets — Senior Software Engineer</div>
+        <div class="job-meta">Oct 2018 – Jun 2019 / Remote</div>
+          <ul>
+              <li>Improved REST APIs and database queries to increase application performance</li>
+              <li>Refactored React Native applications to improve stability and user experience</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">NYSHEX — Principal Software Engineer</div>
+        <div class="job-meta">Jun 2018 – Sep 2018 / New York, NY</div>
+          <ul>
+              <li>Established JavaScript engineering standards and led migration from Angular to React and Redux</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">iCIMS — Lead Software Engineer</div>
+        <div class="job-meta">Oct 2015 – Jan 2018 / Holmdel, New Jersey</div>
+          <ul>
+              <li>Engineered the company’s first large-scale data pipelines using Databricks, Scala, and Spark</li>
+              <li>Led migration of the codebase to Git and established release workflows across teams</li>
+          </ul>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">Jirafe — Director of Software Engineering</div>
+        <div class="job-meta">Nov 2013 – Oct 2015 / New York, NY</div>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">SPIN Magazine — Lead Software Engineer</div>
+        <div class="job-meta">Nov 2011 – Oct 2013 / SoHo, New York, NY</div>
+      </div>
+      
+      <div class="job">
+        <div class="job-title">eFashion Solutions — Director of Software Development</div>
+        <div class="job-meta">Sep 2004 – Oct 2011 / Secaucus, New Jersey</div>
+      </div>
+      
+  </div>
+</body>
+</html>
