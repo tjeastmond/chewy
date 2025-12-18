@@ -25,7 +25,7 @@ describe('bin/export-resume (built)', () => {
       const res = spawnSync(
         process.execPath,
         [path.resolve(process.cwd(), 'bin/export-resume'), '--input', input, '--format', 'txt'],
-        { encoding: 'utf8', cwd: tmp }
+        { encoding: 'utf8', cwd: tmp, input: '\n' }
       )
 
       expect(res.status).toBe(0)
@@ -50,7 +50,7 @@ describe('bin/export-resume (built)', () => {
           '--format',
           'txt',
         ],
-        { encoding: 'utf8' }
+        { encoding: 'utf8', input: '\n' }
       )
 
       expect(res.status).toBe(0)
@@ -71,7 +71,7 @@ describe('bin/export-resume (built)', () => {
           '--format',
           'txt',
         ],
-        { encoding: 'utf8' }
+        { encoding: 'utf8', input: '\n' }
       )
 
       expect(res.status).toBe(0)
@@ -92,7 +92,7 @@ describe('bin/export-resume (built)', () => {
           '--format',
           'html',
         ],
-        { encoding: 'utf8' }
+        { encoding: 'utf8', input: '\n' }
       )
 
       expect(res.status).toBe(0)

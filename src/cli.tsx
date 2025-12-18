@@ -1,12 +1,13 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import React, { useEffect, useMemo, useState } from 'react'
-import { render, Text } from 'ink'
+import { render, Text, useInput } from 'ink'
 
 import { ResumeSchema, type Resume } from './resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporters.js'
 import { exportPdfFromHtml } from './resume/exportPdf.js'
 import { renderHtml } from './resume/renderHtml.js'
+import { sanitizeBaseName } from './utils/sanitizeBaseName.js'
 import { sanitizeAscii } from './utils/sanitizeAscii.js'
 
 type Format = 'html' | 'pdf' | 'json' | 'csv' | 'yaml' | 'txt'
@@ -76,9 +77,14 @@ function outPath(outDir: string, baseName: string, ext: string) {
   return path.resolve(outDir, `${baseName}.${ext}`)
 }
 
-async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Promise<string[]> {
+async function exportAll(
+  resume: Resume,
+  args: CliArgs,
+  inputPath: string,
+  baseNameOverride?: string
+): Promise<string[]> {
   const outDir = path.resolve(process.cwd(), args.outDir ?? 'out')
-  const baseName = path.basename(inputPath, path.extname(inputPath))
+  const baseName = baseNameOverride ?? path.basename(inputPath, path.extname(inputPath))
   const written: string[] = []
 
   await mkdir(outDir, { recursive: true })
@@ -133,12 +139,58 @@ async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Prom
   return written
 }
 
+function FilenamePrompt({
+  defaultValue,
+  onSubmit,
+}: {
+  defaultValue: string
+  onSubmit: (baseName: string) => void
+}) {
+  const [value, setValue] = useState('')
+
+  useInput((input, key) => {
+    if (key.ctrl && input.toLowerCase() === 'c') {
+      process.exitCode = 130
+      process.exit(130)
+    }
+
+    const isEnter = Boolean(key.return) || input === '\n' || input === '\r'
+    if (isEnter) {
+      const chosenRaw = value.length ? value : defaultValue
+      const chosen = sanitizeBaseName(chosenRaw) || sanitizeBaseName(defaultValue) || 'resume'
+      onSubmit(chosen)
+      return
+    }
+
+    if (key.backspace || key.delete) {
+      setValue((v) => v.slice(0, -1))
+      return
+    }
+
+    // Ignore other control keys (arrows, etc)
+    if (key.upArrow || key.downArrow || key.leftArrow || key.rightArrow || key.escape || key.tab) return
+
+    setValue((v) => v + input)
+  })
+
+  const shown = value.length ? value : defaultValue
+
+  return (
+    <>
+      <Text>Output file name (without extension):</Text>
+      <Text>&gt; {shown}</Text>
+      <Text>(Press Enter to accept)</Text>
+    </>
+  )
+}
+
 function App({ argv }: { argv: string[] }) {
   const args = useMemo(() => parseArgs(argv), [argv])
   const [status, setStatus] = useState<
     | { step: 'init' }
     | { step: 'loading'; inputPath: string }
-    | { step: 'exporting'; inputPath: string }
+    | { step: 'prompting'; inputPath: string; resume: Resume; defaultBaseName: string }
+    | { step: 'exporting'; inputPath: string; resume: Resume; baseName: string }
     | { step: 'done'; written: string[] }
     | { step: 'error'; message: string }
   >({ step: 'init' })
@@ -156,11 +208,12 @@ function App({ argv }: { argv: string[] }) {
         const resume = await loadResume(inputPath)
         if (cancelled) return
 
-        setStatus({ step: 'exporting', inputPath })
-        const written = await exportAll(resume, args, inputPath)
-        if (cancelled) return
-
-        setStatus({ step: 'done', written })
+        const defaultBaseName = path.basename(inputPath, path.extname(inputPath))
+        if (process.stdin.isTTY) {
+          setStatus({ step: 'prompting', inputPath, resume, defaultBaseName })
+        } else {
+          setStatus({ step: 'exporting', inputPath, resume, baseName: defaultBaseName })
+        }
       } catch (e) {
         const message = e instanceof Error ? e.message : String(e)
         process.exitCode = 1
@@ -174,8 +227,37 @@ function App({ argv }: { argv: string[] }) {
     }
   }, [args])
 
+  useEffect(() => {
+    if (status.step !== 'exporting') return
+    let cancelled = false
+
+    const run = async () => {
+      try {
+        const written = await exportAll(status.resume, args, status.inputPath, status.baseName)
+        if (cancelled) return
+        setStatus({ step: 'done', written })
+      } catch (e) {
+        const message = e instanceof Error ? e.message : String(e)
+        process.exitCode = 1
+        setStatus({ step: 'error', message })
+      }
+    }
+
+    run()
+    return () => {
+      cancelled = true
+    }
+  }, [args, status])
+
   if (status.step === 'init') return <Text>Starting...</Text>
   if (status.step === 'loading') return <Text>Validating resume JSON: {status.inputPath}</Text>
+  if (status.step === 'prompting')
+    return (
+      <FilenamePrompt
+        defaultValue={status.defaultBaseName}
+        onSubmit={(baseName) => setStatus({ step: 'exporting', inputPath: status.inputPath, resume: status.resume, baseName })}
+      />
+    )
   if (status.step === 'exporting') return <Text>Exporting...</Text>
   if (status.step === 'error') return <Text>ERROR: {sanitizeAscii(status.message)}</Text>
 

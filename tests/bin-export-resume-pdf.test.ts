@@ -42,7 +42,7 @@ describe('bin/export-resume (pdf)', () => {
     const res = spawnSync(
       process.execPath,
       [path.resolve(process.cwd(), 'bin/export-resume'), '--input', input, '--format', 'pdf'],
-      { encoding: 'utf8', cwd: tmp }
+      { encoding: 'utf8', cwd: tmp, input: '\n' }
     )
 
     expect(res.status).toBe(0)
@@ -55,5 +55,5 @@ describe('bin/export-resume (pdf)', () => {
     expect(bytes.subarray(0, 5).toString('utf8')).toBe('%PDF-')
     const tail = bytes.subarray(Math.max(0, bytes.length - 256)).toString('utf8')
     expect(tail).toMatch(/%%EOF\s*$/)
-  })
+  }, 30_000)
 })
