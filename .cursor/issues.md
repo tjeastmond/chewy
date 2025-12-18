@@ -1,4 +1,3 @@
-- [ ] `json-schema.json` appears to be a Job Tracker schema, not a resume schema, so it does not validate `tjeastmond.json`.
 - [ ] Running `export-resume` before building throws `ERR_MODULE_NOT_FOUND` for `dist/cli.js` (should print a helpful message instead).
 - [ ] `tests/json-schema-to-zod.test.ts` referenced a missing `src/validators/jobTrackerFromJsonSchema.js` module (stale test / missing source file).
 - [ ] `pnpm build` fails because `src/cli.ts` contains JSX/Ink components but is compiled as plain TS (should be `.tsx` + tsconfig JSX + React peer dep installed).
