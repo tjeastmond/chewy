@@ -2,8 +2,14 @@ import { spawnSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { mkdir, mkdtemp } from 'node:fs/promises'
 import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 
 import { describe, expect, test } from 'vitest'
+
+function expectAsciiOnly(value: string) {
+  // Allow ASCII printable chars plus common whitespace (\t, \n, \r).
+  expect(value).not.toMatch(/[^\t\n\r\x20-\x7E]/)
+}
 
 describe('bin/export-resume (built)', () => {
   test('runs the CLI and writes output files', async () => {
@@ -24,7 +30,9 @@ describe('bin/export-resume (built)', () => {
 
       expect(res.status).toBe(0)
       expect(res.stderr).not.toMatch(/ERROR:/)
-      expect(existsSync(path.join(tmp, 'out', 'tjeastmond.txt'))).toBe(true)
+      const outFile = path.join(tmp, 'out', 'tjeastmond.txt')
+      expect(existsSync(outFile)).toBe(true)
+      expectAsciiOnly(await readFile(outFile, 'utf8'))
     }
 
     {

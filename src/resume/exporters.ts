@@ -2,6 +2,7 @@ import YAML from 'yaml'
 
 import type { Resume } from './schema.js'
 import { flattenToRows } from '../utils/flatten.js'
+import { sanitizeAscii } from '../utils/sanitizeAscii.js'
 
 function csvEscape(value: string): string {
   if (value.includes('"') || value.includes(',') || value.includes('\n')) {
@@ -11,11 +12,11 @@ function csvEscape(value: string): string {
 }
 
 export function exportJson(resume: Resume): string {
-  return `${JSON.stringify(resume, null, 2)}\n`
+  return sanitizeAscii(`${JSON.stringify(resume, null, 2)}\n`)
 }
 
 export function exportYaml(resume: Resume): string {
-  return `${YAML.stringify(resume)}`
+  return sanitizeAscii(`${YAML.stringify(resume)}`)
 }
 
 export function exportCsv(resume: Resume): string {
@@ -26,7 +27,7 @@ export function exportCsv(resume: Resume): string {
     lines.push(`${csvEscape(row.path)},${csvEscape(row.value)}`)
   }
 
-  return `${lines.join('\n')}\n`
+  return sanitizeAscii(`${lines.join('\n')}\n`)
 }
 
 export function exportText(resume: Resume): string {
@@ -62,5 +63,5 @@ export function exportText(resume: Resume): string {
     lines.push('')
   }
 
-  return `${lines.join('\n').trimEnd()}\n`
+  return sanitizeAscii(`${lines.join('\n').trimEnd()}\n`)
 }

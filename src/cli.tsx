@@ -7,6 +7,7 @@ import { ResumeSchema, type Resume } from './resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporters.js'
 import { exportPdfFromHtml } from './resume/exportPdf.js'
 import { renderHtml } from './resume/renderHtml.js'
+import { sanitizeAscii } from './utils/sanitizeAscii.js'
 
 type Format = 'html' | 'pdf' | 'json' | 'csv' | 'yaml' | 'txt'
 
@@ -173,10 +174,10 @@ function App({ argv }: { argv: string[] }) {
     }
   }, [args])
 
-  if (status.step === 'init') return <Text>Starting…</Text>
+  if (status.step === 'init') return <Text>Starting...</Text>
   if (status.step === 'loading') return <Text>Validating resume JSON: {status.inputPath}</Text>
-  if (status.step === 'exporting') return <Text>Exporting…</Text>
-  if (status.step === 'error') return <Text>ERROR: {status.message}</Text>
+  if (status.step === 'exporting') return <Text>Exporting...</Text>
+  if (status.step === 'error') return <Text>ERROR: {sanitizeAscii(status.message)}</Text>
 
   return (
     <>

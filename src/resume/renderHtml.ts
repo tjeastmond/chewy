@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import Handlebars from 'handlebars'
 
 import type { Resume } from './schema.js'
+import { sanitizeAscii } from '../utils/sanitizeAscii.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -82,5 +83,5 @@ export async function renderHtml(
     skillsOrdered: buildSkillsOrdered(resume, skillsOrder),
   })
 
-  return html
+  return sanitizeAscii(html)
 }
