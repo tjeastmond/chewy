@@ -5,7 +5,7 @@ import path from 'node:path'
 
 import { describe, expect, test } from 'vitest'
 
-describe('bin/export-resume (built)', () => {
+describe('bin/chewy (built)', () => {
   function hasPdfRenderer(): boolean {
     const envPath = process.env.CHROME_PATH
     if (envPath && existsSync(envPath)) return true
@@ -37,13 +37,13 @@ describe('bin/export-resume (built)', () => {
     await mkdir(outRoot, { recursive: true })
 
     {
-      const cwdDir = await mkdtemp(path.join(outRoot, 'export-resume-cwd-default-out-'))
+      const cwdDir = await mkdtemp(path.join(outRoot, 'chewy-cwd-default-out-'))
       await copyFile(input, path.join(cwdDir, 'tjeastmond.json'))
 
       const res = spawnSync(
         process.execPath,
         [
-          path.resolve(process.cwd(), 'bin/export-resume'),
+          path.resolve(process.cwd(), 'bin/chewy'),
           '--input',
           'tjeastmond.json',
           '--format',
@@ -58,11 +58,11 @@ describe('bin/export-resume (built)', () => {
     }
 
     {
-      const outDir = await mkdtemp(path.join(outRoot, 'export-resume-out-txt-'))
+      const outDir = await mkdtemp(path.join(outRoot, 'chewy-out-txt-'))
       const res = spawnSync(
         process.execPath,
         [
-          path.resolve(process.cwd(), 'bin/export-resume'),
+          path.resolve(process.cwd(), 'bin/chewy'),
           '--input',
           input,
           '--out-dir',
@@ -79,11 +79,11 @@ describe('bin/export-resume (built)', () => {
     }
 
     {
-      const outDir = await mkdtemp(path.join(outRoot, 'export-resume-out-html-'))
+      const outDir = await mkdtemp(path.join(outRoot, 'chewy-out-html-'))
       const res = spawnSync(
         process.execPath,
         [
-          path.resolve(process.cwd(), 'bin/export-resume'),
+          path.resolve(process.cwd(), 'bin/chewy'),
           '--input',
           input,
           '--out-dir',
@@ -100,11 +100,11 @@ describe('bin/export-resume (built)', () => {
     }
 
     {
-      const outDir = await mkdtemp(path.join(outRoot, 'export-resume-out-pdf-'))
+      const outDir = await mkdtemp(path.join(outRoot, 'chewy-out-pdf-'))
       const res = spawnSync(
         process.execPath,
         [
-          path.resolve(process.cwd(), 'bin/export-resume'),
+          path.resolve(process.cwd(), 'bin/chewy'),
           '--input',
           input,
           '--out-dir',

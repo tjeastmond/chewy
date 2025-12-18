@@ -50,7 +50,7 @@ export async function exportPdfFromHtml(html: string, outPath: string): Promise<
     )
   }
 
-  const tmpDir = await mkdtemp(path.join(os.tmpdir(), 'export-resume-pdf-'))
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), 'chewy-pdf-'))
   const htmlPath = path.join(tmpDir, 'resume.html')
 
   try {

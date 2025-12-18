@@ -11,14 +11,12 @@ const distCliPath = path.resolve(__dirname, '../dist/cli.js')
 
 if (!existsSync(distCliPath)) {
   // Keep the output readable (especially when invoked from other scripts).
-  console.error(
-    '\nexport-resume: missing build output at dist/cli.js\n\nRun: pnpm build\n'
-  )
+  console.error('\nchewy: missing build output at dist/cli.js\n\nRun: pnpm build\n')
   process.exitCode = 1
 } else {
   const mod = await import(distCliPath)
   if (typeof mod.runCli !== 'function') {
-    console.error('\nexport-resume: dist/cli.js did not export runCli()\n')
+    console.error('\nchewy: dist/cli.js did not export runCli()\n')
     process.exitCode = 1
   } else {
     mod.runCli()
