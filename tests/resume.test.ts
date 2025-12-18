@@ -39,6 +39,9 @@ describe('resume exports', () => {
     const html = await renderHtml(resume, { summaryKey: 'default', roleKey: 'staffplus' })
     expect(html).toMatch(/<title>.*Resume<\/title>/)
     expect(html).toMatch(/TJ Eastmond/)
+    expect(html).toMatch(/\.section-title\s*\{[^}]*font-size:\s*15px;/)
+    expect(html).not.toMatch(/\.section-title\s*\{[^}]*font-size:\s*16px;/)
+    expect(html).toMatch(/@page\s*\{\s*size:\s*letter;\s*margin:\s*0\.25in\s*\}/)
 
     // Pagination / print regression checks:
     // - Do not force hard-coded page breaks between experience entries.
