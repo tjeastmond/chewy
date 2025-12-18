@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const distServePath = path.resolve(__dirname, '../dist/serve.js')
+
+if (!existsSync(distServePath)) {
+  // Keep the output readable (especially when invoked from other scripts).
+  console.error(
+    '\nexport-resume-serve: missing build output at dist/serve.js\n\nRun: pnpm build\n'
+  )
+  process.exitCode = 1
+} else {
+  const mod = await import(distServePath)
+  if (typeof mod.runServe !== 'function') {
+    console.error('\nexport-resume-serve: dist/serve.js did not export runServe()\n')
+    process.exitCode = 1
+  } else {
+    await mod.runServe()
+  }
+}

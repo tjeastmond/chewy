@@ -1,0 +1,129 @@
+{
+  "name": "Zane Flynt",
+  "title": "Senior Software Engineer",
+  "contact": {
+    "email": "zane.flynt.dev@example.com",
+    "phone": "555-014-8821",
+    "location": "Austin, Texas",
+    "linkedin": "linkedin.com/in/zane-flynt",
+    "github": "github.com/zflynt"
+  },
+  "summaries": {
+    "default": "Senior Software Engineer with a strong backend focus and a track record of building reliable, scalable systems. Experienced across TypeScript, Node.js, and cloud-native architectures, with a practical approach to system design, performance, and long-term maintainability.",
+    "ic": "Senior Software Engineer specializing in backend systems, APIs, and data-intensive services. Deeply hands-on with TypeScript, Node.js, and cloud platforms, with an emphasis on clean architecture, observability, and performance.",
+    "leadership": "Senior Software Engineer with experience guiding technical direction, mentoring engineers, and owning complex backend systems. Comfortable balancing hands-on execution with architectural decision-making and cross-team collaboration."
+  },
+  "experience": [
+    {
+      "company": "Hyperion Systems",
+      "role": "Senior Software Engineer",
+      "start": "2022-06",
+      "end": null,
+      "dates_display": "Jun 2022 – Present",
+      "location": "Remote",
+      "highlights": [
+        "Designed and implemented TypeScript-based backend services supporting high-volume transactional workloads",
+        "Refactored legacy Node.js services to improve fault isolation, testability, and deployment safety",
+        "Built and maintained REST APIs with clear versioning and backward compatibility guarantees",
+        "Introduced structured logging, metrics, and tracing to improve observability and incident response",
+        "Collaborated with product and infrastructure teams to plan and deliver multi-quarter initiatives"
+      ]
+    },
+    {
+      "company": "Atlas Commerce",
+      "role": "Software Engineer",
+      "start": "2019-03",
+      "end": "2022-05",
+      "dates_display": "Mar 2019 – May 2022",
+      "location": "Austin, TX",
+      "highlights": [
+        "Developed backend services in Node.js and TypeScript to support e-commerce checkout and fulfillment flows",
+        "Implemented PostgreSQL schema changes and query optimizations to improve read and write performance",
+        "Integrated third-party payment and shipping providers using well-isolated service adapters",
+        "Wrote automated unit and integration tests to improve confidence in production releases"
+      ]
+    },
+    {
+      "company": "Nebula Analytics",
+      "role": "Junior Software Engineer",
+      "start": "2017-07",
+      "end": "2019-02",
+      "dates_display": "Jul 2017 – Feb 2019",
+      "location": "Dallas, TX",
+      "highlights": [
+        "Built internal tools and APIs for data ingestion and reporting pipelines",
+        "Maintained Python and Node.js services used for scheduled data processing jobs",
+        "Assisted with on-call rotations and production issue investigations",
+        "Collaborated with senior engineers to improve code quality and deployment practices"
+      ]
+    }
+  ],
+  "skills": {
+    "Languages & Frameworks": [
+      "TypeScript",
+      "JavaScript",
+      "Node.js",
+      "Express",
+      "Python"
+    ],
+    "Backend & Infrastructure": [
+      "REST APIs",
+      "Microservices",
+      "Docker",
+      "AWS",
+      "CI/CD"
+    ],
+    "Databases & Data": [
+      "PostgreSQL",
+      "MySQL",
+      "Redis",
+      "SQL"
+    ],
+    "Tools & Platforms": [
+      "Git",
+      "GitHub Actions",
+      "Jest",
+      "Datadog"
+    ]
+  },
+  "role_targets": {
+    "ic": {
+      "keywords": [
+        "TypeScript",
+        "Node.js",
+        "Backend",
+        "APIs",
+        "System Design",
+        "PostgreSQL",
+        "AWS"
+      ],
+      "emphasis": {
+        "summary": "ic",
+        "skills_order": [
+          "Languages & Frameworks",
+          "Backend & Infrastructure",
+          "Databases & Data",
+          "Tools & Platforms"
+        ]
+      }
+    },
+    "em": {
+      "keywords": [
+        "Technical Leadership",
+        "Architecture",
+        "Mentorship",
+        "Delivery Ownership"
+      ],
+      "emphasis": {
+        "summary": "leadership",
+        "skills_order": [
+          "Backend & Infrastructure",
+          "Languages & Frameworks",
+          "Databases & Data",
+          "Tools & Platforms"
+        ]
+      }
+    }
+  },
+  "projects": []
+}
