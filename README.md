@@ -41,7 +41,7 @@ Example: `--input ./resume.json --format html,json` writes:
 - `./resume.html`
 - `./resume.json`
 
-Note: `pdf` currently writes a placeholder `.pdf` file that explains PDF export is not implemented yet.
+Note: `pdf` export uses a local Chrome/Chromium executable in headless mode. If it’s not found on your system, set `CHROME_PATH` to the browser executable path.
 
 ## Examples
 
@@ -62,4 +62,3 @@ Use a custom template and select which summary/role to render:
 ```bash
 ./bin/export-resume -i ./resume.json --template ./template.html --summary default --role staffplus
 ```
-

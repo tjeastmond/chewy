@@ -5,6 +5,7 @@ import { render, Text } from 'ink'
 
 import { ResumeSchema, type Resume } from './resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporters.js'
+import { exportPdfFromHtml } from './resume/exportPdf.js'
 import { renderHtml } from './resume/renderHtml.js'
 
 type Format = 'html' | 'pdf' | 'json' | 'csv' | 'yaml' | 'txt'
@@ -116,12 +117,12 @@ async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Prom
 
   if (args.formats.includes('pdf')) {
     const p = outPath(outDir, baseName, 'pdf')
-    // Implemented later (playwright). For now, write a helpful error file.
-    await writeFile(
-      p,
-      'PDF export not yet implemented in this scaffold. Use HTML export for now.\n',
-      'utf8'
-    )
+    const html = await renderHtml(resume, {
+      summaryKey: args.summaryKey,
+      roleKey: args.roleKey,
+      templatePath: args.template,
+    })
+    await exportPdfFromHtml(html, p)
     written.push(p)
   }
 
@@ -158,6 +159,8 @@ function App({ argv }: { argv: string[] }) {
         setStatus({ step: 'done', written })
       } catch (e) {
         const message = e instanceof Error ? e.message : String(e)
+        process.exitCode = 1
+        console.error(`\nERROR: ${message}\n`)
         setStatus({ step: 'error', message })
       }
     }

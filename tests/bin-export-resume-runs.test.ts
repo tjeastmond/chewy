@@ -1,12 +1,34 @@
 import { spawnSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
-import { mkdir, mkdtemp } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { describe, expect, test } from 'vitest'
 
 describe('bin/export-resume (built)', () => {
-  test('runs the CLI and writes output files', async () => {
+  function hasPdfRenderer(): boolean {
+    const envPath = process.env.CHROME_PATH
+    if (envPath && existsSync(envPath)) return true
+
+    const candidates = [
+      'google-chrome',
+      'chromium',
+      'chromium-browser',
+      'google-chrome-stable',
+      // macOS default install location
+      '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    ]
+
+    for (const c of candidates) {
+      if (c.startsWith('/') && existsSync(c)) return true
+      const res = spawnSync(c, ['--version'], { encoding: 'utf8' })
+      if (res.status === 0) return true
+    }
+
+    return false
+  }
+
+  test('runs the CLI and writes output files', { timeout: 30_000 }, async () => {
     const build = spawnSync('pnpm', ['build'], { encoding: 'utf8' })
     expect(build.status).toBe(0)
 
@@ -54,6 +76,38 @@ describe('bin/export-resume (built)', () => {
       expect(res.status).toBe(0)
       expect(res.stderr).not.toMatch(/ERROR:/)
       expect(existsSync(path.join(outDir, 'tjeastmond.html'))).toBe(true)
+    }
+
+    {
+      const outDir = await mkdtemp(path.join(outRoot, 'export-resume-out-pdf-'))
+      const res = spawnSync(
+        process.execPath,
+        [
+          path.resolve(process.cwd(), 'bin/export-resume'),
+          '--input',
+          input,
+          '--out-dir',
+          outDir,
+          '--format',
+          'pdf',
+        ],
+        { encoding: 'utf8' }
+      )
+
+      const pdfPath = path.join(outDir, 'tjeastmond.pdf')
+
+      if (hasPdfRenderer()) {
+        expect(res.status).toBe(0)
+        expect(res.stderr).not.toMatch(/ERROR:/)
+        expect(existsSync(pdfPath)).toBe(true)
+
+        const pdf = await readFile(pdfPath)
+        expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
+      } else {
+        expect(res.status).not.toBe(0)
+        expect(res.stderr).toMatch(/PDF export requires/i)
+        expect(existsSync(pdfPath)).toBe(false)
+      }
     }
   })
 })
