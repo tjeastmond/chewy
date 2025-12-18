@@ -41,7 +41,9 @@ describe('resume exports', () => {
     expect(html).toMatch(/TJ Eastmond/)
     expect(html).toMatch(/\.section-title\s*\{[^}]*font-size:\s*15px;/)
     expect(html).not.toMatch(/\.section-title\s*\{[^}]*font-size:\s*16px;/)
-    expect(html).toMatch(/@page\s*\{\s*size:\s*letter;\s*margin:\s*0\.25in;?\s*\}/)
+    expect(html).toMatch(
+      /@page\s*\{\s*size:\s*letter;\s*margin:\s*0\.5in\s+0\.5in\s+0\.55in;?\s*\}/
+    )
 
     // Pagination / print regression checks:
     // - Do not force hard-coded page breaks between experience entries.
