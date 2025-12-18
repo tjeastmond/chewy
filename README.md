@@ -24,7 +24,7 @@ If `--input` is not provided, the CLI looks for `./tjeastmond.json` or `./resume
 ## Options
 
 - **`--input`, `-i`**: Path to a resume JSON file.
-- **`--out-dir`, `-o`**: Output directory (default: current directory).
+- **`--out-dir`, `-o`**: Output directory (default: `./out`).
 - **`--format`, `-f`**: Output formats (default: `html,pdf,json,csv,yaml,txt`)
   - Use `all` for all formats
   - Or provide a comma-separated list, e.g. `html,json,txt`
@@ -41,7 +41,7 @@ Example: `--input ./resume.json --format html,json` writes:
 - `./resume.html`
 - `./resume.json`
 
-Note: `pdf` currently writes a placeholder `.pdf` file that explains PDF export is not implemented yet.
+Note: `pdf` export requires Chrome/Chromium. Install Google Chrome or set `CHROME_PATH` to a Chromium-based browser executable.
 
 ## Examples
 
@@ -62,4 +62,3 @@ Use a custom template and select which summary/role to render:
 ```bash
 ./bin/export-resume -i ./resume.json --template ./template.html --summary default --role staffplus
 ```
-

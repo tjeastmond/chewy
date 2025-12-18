@@ -15,6 +15,19 @@ describe('bin/export-resume (built)', () => {
     await mkdir(outRoot, { recursive: true })
 
     {
+      const tmp = await mkdtemp(path.join(outRoot, 'export-resume-default-out-dir-'))
+      const res = spawnSync(
+        process.execPath,
+        [path.resolve(process.cwd(), 'bin/export-resume'), '--input', input, '--format', 'txt'],
+        { encoding: 'utf8', cwd: tmp }
+      )
+
+      expect(res.status).toBe(0)
+      expect(res.stderr).not.toMatch(/ERROR:/)
+      expect(existsSync(path.join(tmp, 'out', 'tjeastmond.txt'))).toBe(true)
+    }
+
+    {
       const tmp = await mkdtemp(path.join(outRoot, 'export-resume-out-missing-dir-'))
       const outDir = path.join(tmp, 'nested', 'out')
 

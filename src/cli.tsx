@@ -5,6 +5,7 @@ import { render, Text } from 'ink'
 
 import { ResumeSchema, type Resume } from './resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporters.js'
+import { exportPdfFromHtml } from './resume/exportPdf.js'
 import { renderHtml } from './resume/renderHtml.js'
 
 type Format = 'html' | 'pdf' | 'json' | 'csv' | 'yaml' | 'txt'
@@ -75,11 +76,22 @@ function outPath(outDir: string, baseName: string, ext: string) {
 }
 
 async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Promise<string[]> {
-  const outDir = path.resolve(process.cwd(), args.outDir ?? '.')
+  const outDir = path.resolve(process.cwd(), args.outDir ?? 'out')
   const baseName = path.basename(inputPath, path.extname(inputPath))
   const written: string[] = []
 
   await mkdir(outDir, { recursive: true })
+
+  const wantsHtml = args.formats.includes('html')
+  const wantsPdf = args.formats.includes('pdf')
+  const html =
+    wantsHtml || wantsPdf
+      ? await renderHtml(resume, {
+          summaryKey: args.summaryKey,
+          roleKey: args.roleKey,
+          templatePath: args.template,
+        })
+      : null
 
   if (args.formats.includes('json')) {
     const p = outPath(outDir, baseName, 'json')
@@ -105,25 +117,15 @@ async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Prom
     written.push(p)
   }
 
-  if (args.formats.includes('html')) {
-    const html = await renderHtml(resume, {
-      summaryKey: args.summaryKey,
-      roleKey: args.roleKey,
-      templatePath: args.template,
-    })
+  if (wantsHtml) {
     const p = outPath(outDir, baseName, 'html')
-    await writeFile(p, html, 'utf8')
+    await writeFile(p, html ?? '', 'utf8')
     written.push(p)
   }
 
-  if (args.formats.includes('pdf')) {
+  if (wantsPdf) {
     const p = outPath(outDir, baseName, 'pdf')
-    // Implemented later (playwright). For now, write a helpful error file.
-    await writeFile(
-      p,
-      'PDF export not yet implemented in this scaffold. Use HTML export for now.\n',
-      'utf8'
-    )
+    await exportPdfFromHtml(html ?? '', p)
     written.push(p)
   }
 

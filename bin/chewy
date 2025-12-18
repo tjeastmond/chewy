@@ -1,11 +1,22 @@
 #!/usr/bin/env node
 
-import { existsSync } from 'node:fs'
+import { existsSync, mkdirSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+function maybeCreateOutDir(argv) {
+  const long = argv.indexOf('--out-dir')
+  const short = argv.indexOf('-o')
+  const i = long !== -1 ? long : short
+  const v = i === -1 ? 'out' : argv[i + 1]
+  if (!v) return
+
+  const outDir = path.resolve(process.cwd(), v)
+  mkdirSync(outDir, { recursive: true })
+}
 
 const distCliPath = path.resolve(__dirname, '../dist/cli.js')
 
@@ -14,6 +25,7 @@ if (!existsSync(distCliPath)) {
   console.error('\nchewy (alias for export-resume): missing build output at dist/cli.js\n\nRun: pnpm build\n')
   process.exitCode = 1
 } else {
+  maybeCreateOutDir(process.argv.slice(2))
   const mod = await import(distCliPath)
   if (typeof mod.runCli !== 'function') {
     console.error('\nchewy (alias for export-resume): dist/cli.js did not export runCli()\n')
