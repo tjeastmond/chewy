@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import React, { useEffect, useMemo, useState } from 'react'
 import { render, Text } from 'ink'
@@ -76,7 +76,8 @@ function outPath(outDir: string, baseName: string, ext: string) {
 }
 
 async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Promise<string[]> {
-  const outDir = path.resolve(process.cwd(), args.outDir ?? '.')
+  const outDir = path.resolve(process.cwd(), args.outDir ?? 'out')
+  await mkdir(outDir, { recursive: true })
   const baseName = path.basename(inputPath, path.extname(inputPath))
   const written: string[] = []
 
