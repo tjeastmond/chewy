@@ -39,5 +39,11 @@ describe('resume exports', () => {
     const html = await renderHtml(resume, { summaryKey: 'default', roleKey: 'staffplus' })
     expect(html).toMatch(/<title>.*Resume<\/title>/)
     expect(html).toMatch(/TJ Eastmond/)
+
+    // Pagination / print regression checks:
+    // - Do not force hard-coded page breaks between experience entries.
+    expect(html).not.toMatch(/class="page-break"/)
+    // - Avoid splitting a single job across pages (prevents orphaned headings).
+    expect(html).not.toMatch(/@media print[\s\S]*\.job\s*\{[\s\S]*break-inside:\s*auto/i)
   })
 })
