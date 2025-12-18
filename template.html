@@ -46,7 +46,7 @@
       .skills { font-size: 13px; margin-bottom: 10px; }
       .skill-group-row { margin-bottom: 3px; }
       .summary { font-size: 14px; margin-bottom: 10px; }
-      .job { margin-bottom: 10px; break-inside: auto; page-break-inside: auto; }
+      .job { margin-bottom: 10px; break-inside: avoid; page-break-inside: avoid; }
       .job-title { font-size: 16px; }
       .job-meta { font-size: 12px; margin-bottom: 4px; }
       li { font-size: 13px; margin-bottom: 3px; }
@@ -95,7 +95,6 @@
           </ul>
         {{/if}}
       </div>
-      {{#if @last}}{{else}}{{#if (eq @index 2)}}<div class="page-break"></div>{{/if}}{{/if}}
     {{/each}}
   </div>
 </body>
