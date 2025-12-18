@@ -62,3 +62,4 @@ Use a custom template and select which summary/role to render:
 ```bash
 ./bin/export-resume -i ./resume.json --template ./template.html --summary default --role staffplus
 ```
+
