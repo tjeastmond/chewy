@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import React, { useEffect, useMemo, useState } from 'react'
 import { render, Text } from 'ink'
@@ -79,6 +79,8 @@ async function exportAll(resume: Resume, args: CliArgs, inputPath: string): Prom
   const baseName = path.basename(inputPath, path.extname(inputPath))
   const written: string[] = []
 
+  await mkdir(outDir, { recursive: true })
+
   if (args.formats.includes('json')) {
     const p = outPath(outDir, baseName, 'json')
     await writeFile(p, exportJson(resume), 'utf8')
@@ -158,6 +160,7 @@ function App({ argv }: { argv: string[] }) {
         setStatus({ step: 'done', written })
       } catch (e) {
         const message = e instanceof Error ? e.message : String(e)
+        process.exitCode = 1
         setStatus({ step: 'error', message })
       }
     }

@@ -5,3 +5,4 @@
 - [ ] CLI does not create missing `--out-dir` directories and errors may not result in a non-zero exit code (hard to use in scripts).
 - [ ] `bin/export-resume` should call `runCli()` from `dist/cli.js`; relying on auto-run inside the module breaks when imported from the bin wrapper.
 - [ ] `--format txt` still attempts to render HTML (and may error if the default template path can’t be found); HTML rendering should be conditional, and default template lookup should work when bundled.
+- [ ] `chewy` CLI entrypoint missing (`bin/chewy`) causes MODULE_NOT_FOUND when invoking `chewy`
