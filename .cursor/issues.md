@@ -1,0 +1,1 @@
+- [ ] `json-schema.json` appears to be a Job Tracker schema, not a resume schema, so it does not validate `tjeastmond.json`.

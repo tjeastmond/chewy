@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-summary="{{summaryKey}}" data-role="{{roleKey}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{name}} - Resume</title>
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 40px;
+      color: #000;
+      line-height: 1.4;
+      background: #fff;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 48px; margin: 0 0 4px 0; letter-spacing: 0.5px; }
+    .tagline { font-size: 14px; margin-bottom: 6px; }
+    .contact { font-size: 14px; margin-bottom: 26px; }
+    .contact a { color: rgba(33, 121, 199, 1); text-decoration: none; }
+    .section-title {
+      font-weight: bold;
+      color: rgba(33, 121, 199, 1);
+      letter-spacing: 0.5px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .skills { font-size: 14px; margin-bottom: 18px; }
+    .skill-group-row { margin-bottom: 6px; }
+    .skill-group-label { font-weight: bold; }
+    .summary { font-size: 15px; margin-bottom: 18px; }
+    .job { margin-bottom: 18px; break-inside: avoid; page-break-inside: avoid; }
+    .job-title { font-weight: bold; font-size: 18px; }
+    .job-meta { font-size: 13px; text-transform: uppercase; color: #444; margin-bottom: 8px; }
+    ul { margin-top: 6px; padding-left: 22px; }
+    li { margin-bottom: 6px; font-size: 14px; }
+    .page-break { page-break-before: always; break-before: page; }
+
+    @media print {
+      @page { size: letter; margin: 0.5in 0.5in 0.55in; }
+      body { margin: 0; }
+      .container { max-width: none; }
+      h1 { font-size: 41px; }
+      .contact { margin-bottom: 18px; }
+      .section-title { margin-top: 14px; margin-bottom: 6px; }
+      .skills { font-size: 13px; margin-bottom: 10px; }
+      .skill-group-row { margin-bottom: 3px; }
+      .summary { font-size: 14px; margin-bottom: 10px; }
+      .job { margin-bottom: 10px; break-inside: auto; page-break-inside: auto; }
+      .job-title { font-size: 16px; }
+      .job-meta { font-size: 12px; margin-bottom: 4px; }
+      li { font-size: 13px; margin-bottom: 3px; }
+      ul { margin-top: 3px; }
+      a { color: rgba(33, 121, 199, 1); text-decoration: none; }
+      .section-title { break-after: avoid; page-break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{name}}</h1>
+    <div class="tagline">{{title}}</div>
+    <div class="contact">
+      {{contact.email}} &nbsp;|&nbsp; {{contact.phone}} &nbsp;|&nbsp; {{contact.location}} &nbsp;|&nbsp;
+      <a href="{{contact.linkedin}}">{{stripProtocol contact.linkedin}}</a>
+      &nbsp;|&nbsp;
+      <a href="{{contact.github}}">{{stripProtocol contact.github}}</a>
+    </div>
+
+    <div class="section-title">SKILLS</div>
+    <div class="skills">
+      {{#each skillsOrdered}}
+        <div class="skill-group-row">
+          <span class="skill-group-label">{{this.label}}:</span>
+          {{join this.items " | "}}
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="section-title">SUMMARY</div>
+    <div class="summary">
+      {{summary}}
+    </div>
+
+    <div class="section-title">EXPERIENCE</div>
+
+    {{#each experience}}
+      <div class="job">
+        <div class="job-title">{{company}} — {{role}}</div>
+        <div class="job-meta">{{dates_display}} / {{location}}</div>
+        {{#if highlights.length}}
+          <ul>
+            {{#each highlights}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </div>
+      {{#if @last}}{{else}}{{#if (eq @index 2)}}<div class="page-break"></div>{{/if}}{{/if}}
+    {{/each}}
+  </div>
+</body>
+</html>
