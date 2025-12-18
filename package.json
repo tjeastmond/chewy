@@ -1,13 +1,14 @@
 {
-  "name": "export-resume",
+  "name": "chewy",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "bin": {
-    "export-resume": "bin/export-resume"
+    "chewy": "bin/chewy",
+    "chewy-server": "bin/chewy-server"
   },
   "scripts": {
-    "build": "tsup src/cli.tsx --format esm --dts --clean",
+    "build": "tsup src/cli.tsx src/serve.ts --format esm --dts --clean",
     "test": "vitest run"
   },
   "keywords": [],

@@ -5,3 +5,4 @@
 - [ ] `bin/export-resume` should call `runCli()` from `dist/cli.js`; relying on auto-run inside the module breaks when imported from the bin wrapper.
 - [ ] `--format txt` still attempts to render HTML (and may error if the default template path can’t be found); HTML rendering should be conditional, and default template lookup should work when bundled.
 - [ ] `tests/build.test.ts` can be flaky because multiple tests invoke `pnpm build` in parallel.
+- [ ] `tests/resume.test.ts` has a brittle CSS assertion for `@page` (fails if `margin: 0.25in` includes a trailing semicolon).

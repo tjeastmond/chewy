@@ -23,7 +23,7 @@ async function close(server: ReturnType<typeof createResumeServer>) {
 
 describe('resume server', () => {
   test('serves HTML using resume.json when present', async () => {
-    const tmp = await mkdtemp(path.join(os.tmpdir(), 'export-resume-server-'))
+    const tmp = await mkdtemp(path.join(os.tmpdir(), 'chewy-server-'))
     const fixture = await readFile(path.resolve(process.cwd(), 'tjeastmond.json'), 'utf8')
 
     await writeFile(path.join(tmp, 'resume.json'), fixture, 'utf8')
@@ -45,7 +45,7 @@ describe('resume server', () => {
   })
 
   test('falls back to tjeastmond.json if resume.json is missing', async () => {
-    const tmp = await mkdtemp(path.join(os.tmpdir(), 'export-resume-server-'))
+    const tmp = await mkdtemp(path.join(os.tmpdir(), 'chewy-server-'))
     const fixture = await readFile(path.resolve(process.cwd(), 'tjeastmond.json'), 'utf8')
     await writeFile(path.join(tmp, 'tjeastmond.json'), fixture, 'utf8')
 
@@ -64,7 +64,7 @@ describe('resume server', () => {
   })
 
   test('returns 404 for unknown routes', async () => {
-    const tmp = await mkdtemp(path.join(os.tmpdir(), 'export-resume-server-'))
+    const tmp = await mkdtemp(path.join(os.tmpdir(), 'chewy-server-'))
     const fixture = await readFile(path.resolve(process.cwd(), 'tjeastmond.json'), 'utf8')
     await writeFile(path.join(tmp, 'resume.json'), fixture, 'utf8')
 
