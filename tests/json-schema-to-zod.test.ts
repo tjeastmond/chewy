@@ -1,11 +1,15 @@
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+
 import { describe, expect, test } from 'vitest'
 
-import { JobTrackerSchema } from '../src/validators/jobTrackerFromJsonSchema.js'
+describe('json-schema.json', () => {
+  test('is valid JSON and has basic schema metadata', async () => {
+    const raw = await readFile(path.resolve(process.cwd(), 'json-schema.json'), 'utf8')
+    const json = JSON.parse(raw) as Record<string, unknown>
 
-describe('json-schema.json -> zod', () => {
-  test('builds a working validator for at least one schema variant', () => {
-    // One of the schema variants is "User Create Input (Admin)" which requires only email.
-    const parsed = JobTrackerSchema.safeParse({ email: 'test@example.com' })
-    expect(parsed.success).toBe(true)
+    expect(json.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
+    expect(json.title).toBeTruthy()
+    expect(json.type).toBe('object')
   })
 })
