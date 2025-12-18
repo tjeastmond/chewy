@@ -1,0 +1,247 @@
+{
+  "name": "TJ Eastmond",
+  "title": "Senior Software Engineer & Technical Leader",
+  "contact": {
+    "email": "tj.eastmond@gmail.com",
+    "phone": "732-983-8789",
+    "location": "New Jersey",
+    "linkedin": "https://linkedin.com/in/tjeastmond",
+    "github": "https://github.com/tjeastmond"
+  },
+  "summaries": {
+    "default": "Product-minded Senior Software Engineer and engineering leader with nearly 20 years of experience designing, building, and operating scalable platforms, APIs, and data systems. Brings deep hands-on expertise across backend systems, data engineering, and modern JavaScript architectures, with a track record of technical ownership, cross-functional leadership, and delivery of complex initiatives from concept to production.",
+    "ic": "Senior Software Engineer with nearly 20 years of experience designing and building scalable backend systems, APIs, and data platforms. Deeply hands-on across TypeScript, Node.js, Python, and modern cloud architectures, with a focus on system design, performance, and reliability.",
+    "leadership": "Senior Software Engineer and engineering leader with nearly 20 years of experience owning complex systems and guiding teams through large-scale technical initiatives. Experienced in balancing hands-on execution with architectural direction, cross-functional collaboration, and long-term platform strategy."
+  },
+  "experience": [
+    {
+      "company": "ADP / Sora",
+      "role": "Lead Senior Engineer",
+      "start": "2025-04",
+      "end": null,
+      "dates_display": "Apr 2025 – Present",
+      "location": "Remote (Contract)",
+      "highlights": [
+        "Leading large-scale refactors of a mission-critical employment onboarding platform, improving modularity, fault isolation, and long-term maintainability",
+        "Driving architectural redesigns by authoring RFCs and technical proposals for complex feature rewrites and system-wide changes",
+        "Decomposing legacy monolithic services into clearer, service-oriented components with well-defined ownership boundaries",
+        "Introducing and standardizing TypeScript across backend services to improve type safety, correctness, and developer velocity",
+        "Partnering with stakeholders across engineering and product to align technical direction with evolving business requirements",
+        "Leveraging AI-assisted development tools to accelerate refactoring, test scaffolding, and technical documentation while maintaining code quality standards"
+      ]
+    },
+    {
+      "company": "Yogi",
+      "role": "Senior Engineer",
+      "start": "2023-11",
+      "end": "2024-03",
+      "dates_display": "Nov 2023 – Mar 2024",
+      "location": "Remote",
+      "highlights": [
+        "Designed and built reusable frontend components and backend TypeScript APIs integrating multiple internal services and third-party systems",
+        "Implemented and optimized SQL queries and Python-based data processing to reduce load on Postgres and improve dashboard responsiveness",
+        "Improved schema design, indexing strategies, and query patterns to support reliability, performance, and long-term maintainability",
+        "Collaborated closely with product, data, and engineering partners to translate requirements into scalable technical solutions"
+      ]
+    },
+    {
+      "company": "Lunchbox",
+      "role": "Senior Engineering Manager / Senior Staff Engineer",
+      "start": "2021-04",
+      "end": "2023-07",
+      "dates_display": "Apr 2021 – Jul 2023",
+      "location": "Remote",
+      "highlights": [
+        "Led modernization of high-traffic client-facing ordering platforms by migrating systems to TypeScript, Next.js, and Vercel",
+        "Owned the design and delivery of real-time ETL pipelines using Python, dbt, Airflow, and Snowflake to support analytics and reporting",
+        "Designed and implemented event-driven architectures to replicate operational data into analytics systems with minimal latency",
+        "Refactored payment processing and menu synchronization into scalable, feature-focused services with clear ownership boundaries",
+        "Partnered closely with product, design, and business leaders to plan and deliver complex cross-functional initiatives",
+        "Established development standards and CI/CD improvements to increase delivery quality, consistency, and team velocity"
+      ]
+    },
+    {
+      "company": "DriveWealth",
+      "role": "Principal Software Engineer / Engineering Manager",
+      "start": "2020-01",
+      "end": "2021-02",
+      "dates_display": "Jan 2020 – Feb 2021",
+      "location": "Remote",
+      "highlights": [
+        "Led development of high-performance Node.js and TypeScript APIs powering customer-facing trading dashboards and internal platforms",
+        "Owned authentication and authorization services using AWS Cognito, Lambda, and DynamoDB, with responsibility for reliability and security",
+        "Balanced hands-on development with technical leadership, mentoring engineers and guiding architectural decisions",
+        "Prioritized and coordinated platform-level initiatives to support new features and reduce operational risk",
+        "Built internal tools to improve operational efficiency, observability, and support workflows"
+      ]
+    },
+    {
+      "company": "Rubicon Project / Magnite",
+      "role": "Senior Software Engineer",
+      "start": "2019-06",
+      "end": "2020-01",
+      "dates_display": "Jun 2019 – Jan 2020",
+      "location": "Remote",
+      "highlights": [
+        "Contributed to the open-source Prebid.js project",
+        "Refactored legacy JavaScript to improve maintainability and adopt functional programming patterns",
+        "Mentored junior engineers through pair programming and code reviews"
+      ]
+    },
+    {
+      "company": "Barkly Pets",
+      "role": "Senior Software Engineer",
+      "start": "2018-10",
+      "end": "2019-06",
+      "dates_display": "Oct 2018 – Jun 2019",
+      "location": "Remote",
+      "highlights": [
+        "Improved REST APIs and database queries to increase application performance",
+        "Refactored React Native applications to improve stability and user experience"
+      ]
+    },
+    {
+      "company": "NYSHEX",
+      "role": "Principal Software Engineer",
+      "start": "2018-06",
+      "end": "2018-09",
+      "dates_display": "Jun 2018 – Sep 2018",
+      "location": "New York, NY",
+      "highlights": [
+        "Established JavaScript engineering standards and led migration from Angular to React and Redux"
+      ]
+    },
+    {
+      "company": "iCIMS",
+      "role": "Lead Software Engineer",
+      "start": "2015-10",
+      "end": "2018-01",
+      "dates_display": "Oct 2015 – Jan 2018",
+      "location": "Holmdel, New Jersey",
+      "highlights": [
+        "Engineered the company’s first large-scale data pipelines using Databricks, Scala, and Spark",
+        "Led migration of the codebase to Git and established release workflows across teams"
+      ]
+    },
+    {
+      "company": "Jirafe",
+      "role": "Director of Software Engineering",
+      "start": "2013-11",
+      "end": "2015-10",
+      "dates_display": "Nov 2013 – Oct 2015",
+      "location": "New York, NY",
+      "highlights": []
+    },
+    {
+      "company": "SPIN Magazine",
+      "role": "Lead Software Engineer",
+      "start": "2011-11",
+      "end": "2013-10",
+      "dates_display": "Nov 2011 – Oct 2013",
+      "location": "SoHo, New York, NY",
+      "highlights": []
+    },
+    {
+      "company": "eFashion Solutions",
+      "role": "Director of Software Development",
+      "start": "2004-09",
+      "end": "2011-10",
+      "dates_display": "Sep 2004 – Oct 2011",
+      "location": "Secaucus, New Jersey",
+      "highlights": []
+    }
+  ],
+  "skills": {
+    "Languages & Frameworks": [
+      "TypeScript",
+      "JavaScript",
+      "Node.js",
+      "Next.js",
+      "React",
+      "React Native",
+      "Express",
+      "Python",
+      "FastAPI",
+      "Flask"
+    ],
+    "Backend & Infrastructure": [
+      "AWS",
+      "Docker",
+      "Serverless",
+      "REST APIs",
+      "Microservices",
+      "CI/CD",
+      "GitHub Actions"
+    ],
+    "Databases & Data": [
+      "Postgres",
+      "MySQL",
+      "MariaDB",
+      "MongoDB",
+      "DynamoDB",
+      "Snowflake",
+      "SQL",
+      "dbt",
+      "Airflow"
+    ],
+    "Tools & Platforms": [
+      "Vercel",
+      "Stripe",
+      "Jest",
+      "Metabase",
+      "Datadog",
+      "Git",
+      "Cursor",
+      "Claude Code",
+      "ChatGPT",
+      "GitHub Copilot"
+    ]
+  },
+  "role_targets": {
+    "ic": {
+      "keywords": [
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "REST APIs",
+        "Microservices",
+        "System Design",
+        "Performance Optimization",
+        "AWS",
+        "CI/CD",
+        "Postgres"
+      ],
+      "emphasis": {
+        "summary": "ic",
+        "skills_order": [
+          "Languages & Frameworks",
+          "Backend & Infrastructure",
+          "Databases & Data",
+          "Tools & Platforms"
+        ]
+      }
+    },
+    "em": {
+      "keywords": [
+        "Technical Leadership",
+        "Architecture",
+        "Cross-functional Collaboration",
+        "Mentorship",
+        "Delivery Ownership",
+        "Platform Strategy",
+        "Engineering Standards",
+        "Stakeholder Management"
+      ],
+      "emphasis": {
+        "summary": "leadership",
+        "skills_order": [
+          "Backend & Infrastructure",
+          "Databases & Data",
+          "Languages & Frameworks",
+          "Tools & Platforms"
+        ]
+      }
+    }
+  },
+  "projects": []
+}

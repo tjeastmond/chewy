@@ -1,0 +1,50 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+
+# Build output
+dist/
+build/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# dotenv environment variables
+.env
+.env.*
+
+# coverage output
+coverage/
+
+# Lock files
+# package-lock.json
+# yarn.lock
+
+# Misc
+*.tgz
+
+# VSCode settings
+.vscode/
+.history/
+
+# Ignore JSON schema cache/output artifacts
+*.schema.cache
+*.schema.generated.json
+
+# Ignore IDE files
+.idea/
