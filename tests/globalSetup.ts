@@ -12,4 +12,3 @@ export default async function globalSetup() {
     await rm(outRoot, { recursive: true, force: true })
   }
 }
-
