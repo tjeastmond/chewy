@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
-import { mkdir, mkdtemp, readFile } from 'node:fs/promises'
+import { copyFile, mkdir, mkdtemp, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { describe, expect, test } from 'vitest'
@@ -35,6 +35,27 @@ describe('bin/export-resume (built)', () => {
     const input = path.resolve(process.cwd(), 'tjeastmond.json')
     const outRoot = path.resolve(process.cwd(), 'out')
     await mkdir(outRoot, { recursive: true })
+
+    {
+      const cwdDir = await mkdtemp(path.join(outRoot, 'export-resume-cwd-default-out-'))
+      await copyFile(input, path.join(cwdDir, 'tjeastmond.json'))
+
+      const res = spawnSync(
+        process.execPath,
+        [
+          path.resolve(process.cwd(), 'bin/export-resume'),
+          '--input',
+          'tjeastmond.json',
+          '--format',
+          'txt',
+        ],
+        { encoding: 'utf8', cwd: cwdDir }
+      )
+
+      expect(res.status).toBe(0)
+      expect(res.stderr).not.toMatch(/ERROR:/)
+      expect(existsSync(path.join(cwdDir, 'out', 'tjeastmond.txt'))).toBe(true)
+    }
 
     {
       const outDir = await mkdtemp(path.join(outRoot, 'export-resume-out-txt-'))
