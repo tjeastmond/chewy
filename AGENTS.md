@@ -60,10 +60,10 @@ The resume JSON schema includes:
 ### Build System
 - **tsup**: Bundles TypeScript to ESM format in `dist/`
 - **tsconfig.json**: Configured for NodeNext module resolution with React JSX
-- Test files use `.test.ts` suffix (note: user prefers `.spec.ts` for new tests)
+- Test files use `.spec.ts` suffix
 
 ### Known Issues
-See `.cursor/issues.md` for tracked bugs and improvements, including:
+See `.ai/known_issues.md` for tracked bugs and improvements, including:
 - `sanitizeBaseName` regex issues on Node 24
 - HTML rendering conditionals for text-only formats
 - Template path resolution in bundled scenarios

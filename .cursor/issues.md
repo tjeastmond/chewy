@@ -1,8 +1,0 @@
-- [ ] sanitizeBaseName uses replaceAll with a non-global RegExp, causing a runtime crash on Node 24 during filename prompting
-
-- [ ] `json-schema.json` appears to be a Job Tracker schema, not a resume schema, so it does not validate `tjeastmond.json`.
-- [ ] `tests/json-schema-to-zod.test.ts` referenced a missing `src/validators/jobTrackerFromJsonSchema.js` module (stale test / missing source file).
-- [ ] `pnpm build` fails because `src/cli.ts` contains JSX/Ink components but is compiled as plain TS (should be `.tsx` + tsconfig JSX + React peer dep installed).
-- [ ] CLI does not create missing `--out-dir` directories and errors may not result in a non-zero exit code (hard to use in scripts).
-- [ ] `--format txt` still attempts to render HTML (and may error if the default template path can't be found); HTML rendering should be conditional, and default template lookup should work when bundled.
-- [ ] `chewy` CLI entrypoint missing (`bin/chewy`) causes MODULE_NOT_FOUND when invoking `chewy`
