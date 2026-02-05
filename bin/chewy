@@ -7,6 +7,25 @@ import { fileURLToPath } from 'node:url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const HELP_TEXT = `Usage: chewy [options]
+
+Exports resume JSON into HTML, PDF, JSON, CSV, YAML, and TXT.
+
+Options:
+  -h, --help              Show this help message
+  -i, --input <path>      Path to resume JSON (default: ./resume.json)
+  -o, --out-dir <path>    Output directory (default: ./out)
+  -f, --format <list>     all or comma-separated formats
+                          (html,pdf,json,csv,yaml,txt)
+      --summary <key>     Summary key from summaries (default: default)
+      --role <key>        Role key from role_targets (default: staffplus)
+      --template <path>   Path to a custom Handlebars template
+`
+
+function wantsHelp(argv) {
+  return argv.includes('--help') || argv.includes('-h')
+}
+
 function maybeCreateOutDir(argv) {
   const long = argv.indexOf('--out-dir')
   const short = argv.indexOf('-o')
@@ -19,13 +38,19 @@ function maybeCreateOutDir(argv) {
 }
 
 const distCliPath = path.resolve(__dirname, '../dist/cli.js')
+const argv = process.argv.slice(2)
+
+if (wantsHelp(argv)) {
+  process.stdout.write(`${HELP_TEXT}\n`)
+  process.exit(0)
+}
 
 if (!existsSync(distCliPath)) {
   // Keep the output readable (especially when invoked from other scripts).
   console.error('\nchewy: missing build output at dist/cli.js\n\nRun: pnpm build\n')
   process.exitCode = 1
 } else {
-  maybeCreateOutDir(process.argv.slice(2))
+  maybeCreateOutDir(argv)
   const mod = await import(distCliPath)
   if (typeof mod.runCli !== 'function') {
     console.error('\nchewy: dist/cli.js did not export runCli()\n')

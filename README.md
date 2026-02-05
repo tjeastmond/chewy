@@ -1,74 +1,140 @@
 # chewy
 
-Export a resume JSON file into multiple formats from the command line.
+Chewy converts a resume JSON file into publishable output files from the command line.
 
-## Install
+Supported outputs: `html`, `pdf`, `json`, `csv`, `yaml`, `txt`.
 
-This repo builds a local CLI binary named `chewy`.
+## Quick start
 
 ```bash
 pnpm install
 pnpm build
-```
-
-## Development
-
-```bash
-pnpm lint
-pnpm format:check
-pnpm test
-```
-
-## Usage
-
-Run the CLI from this repo:
-
-```bash
 ./bin/chewy --input ./resume.json
 ```
 
-If `--input` is not provided, the CLI looks for `./resume.json` in the current directory.
+If `--input` is omitted, Chewy looks for `./resume.json` in your current directory.
 
-For tests, the project uses an anonymized fixture at `tests/fixtures/test_resume.json`.
+By default, outputs are written to `./out`.
 
-## Options
+## How to use Chewy
 
-- **`--input`, `-i`**: Path to a resume JSON file.
-- **`--out-dir`, `-o`**: Output directory (default: `./out`).
-- **`--format`, `-f`**: Output formats (default: `html,pdf,json,csv,yaml,txt`)
-  - Use `all` for all formats
-  - Or provide a comma-separated list, e.g. `html,json,txt`
-- **`--summary`**: Summary key to render in HTML (default: `default`)
-- **`--role`**: Role key used for role-targeted rendering in HTML (default: `staffplus`)
-- **`--template`**: Path to a Handlebars HTML template (default: `templates/resume.hbs`)
+### 1. Create a resume JSON file
 
-## Output files
+Chewy validates your input using `resume.schema.json`.
 
-Outputs are written to `--out-dir` using the input filename as the base name.
+Minimal example:
 
-Example: `--input ./resume.json --format html,json` writes:
-
-- `./resume.html`
-- `./resume.json`
-
-Note: `pdf` export requires Chrome/Chromium. Install Google Chrome or set `CHROME_PATH` to a Chromium-based browser executable.
-
-## Examples
-
-Export everything to `./out`:
-
-```bash
-./bin/chewy --input ./resume.json --out-dir ./out --format all
+```json
+{
+  "name": "Alex Candidate",
+  "title": "Senior Software Engineer",
+  "contact": {
+    "email": "alex@example.com",
+    "phone": "555-0100",
+    "location": "Austin, TX",
+    "linkedin": "https://www.linkedin.com/in/alexcandidate",
+    "github": "https://github.com/alexcandidate"
+  },
+  "summaries": {
+    "default": "Senior engineer with experience building web products.",
+    "backend": "Backend-focused engineer with API and platform depth."
+  },
+  "experience": [
+    {
+      "company": "Example Corp",
+      "role": "Senior Engineer",
+      "start": "2021-01",
+      "end": null,
+      "dates_display": "Jan 2021 - Present",
+      "location": "Remote",
+      "highlights": [
+        "Led migration of core services.",
+        "Reduced deploy time by 40%."
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["TypeScript", "Python"],
+    "platforms": ["AWS", "Docker"]
+  },
+  "role_targets": {
+    "staffplus": {
+      "keywords": ["architecture", "leadership"],
+      "emphasis": {
+        "summary": "backend",
+        "skills_order": ["platforms", "languages"]
+      }
+    }
+  },
+  "projects": []
+}
 ```
 
-Export only HTML and TXT:
+### 2. Run exports
+
+Export all formats:
 
 ```bash
-./bin/chewy -i ./resume.json -f html,txt
+./bin/chewy --input ./resume.json --format all
 ```
 
-Use a custom template and select which summary/role to render:
+Export only selected formats:
 
 ```bash
-./bin/chewy -i ./resume.json --template ./template.html --summary default --role staffplus
+./bin/chewy --input ./resume.json --format html,pdf,txt
 ```
+
+Set output directory:
+
+```bash
+./bin/chewy --input ./resume.json --out-dir ./dist/resume
+```
+
+Choose summary variant and role target (affects HTML/PDF rendering):
+
+```bash
+./bin/chewy --input ./resume.json --summary backend --role staffplus
+```
+
+Use a custom Handlebars template:
+
+```bash
+./bin/chewy --input ./resume.json --template ./templates/custom-resume.hbs
+```
+
+### 3. Pick output base filename when prompted
+
+When running in an interactive terminal, Chewy prompts for output filename (without extension).
+
+If you press Enter, it uses the input filename.
+
+Example: input `resume.json`, selected formats `html,pdf`:
+
+- `out/resume.html`
+- `out/resume.pdf`
+
+## CLI options
+
+- `--help`, `-h`: Show usage and available options.
+- `--input`, `-i`: Resume JSON path. Default: `./resume.json` (if present).
+- `--out-dir`, `-o`: Output directory. Default: `./out`.
+- `--format`, `-f`: `all` or comma-separated list of `html,pdf,json,csv,yaml,txt`.
+- `--summary`: Summary key from `summaries`. Default: `default`.
+- `--role`: Role key from `role_targets`. Default: `staffplus`.
+- `--template`: Custom Handlebars template path.
+
+## PDF requirement
+
+PDF export requires a Chromium-based browser.
+
+If auto-detection fails, set:
+
+```bash
+CHROME_PATH=/path/to/chrome ./bin/chewy --input ./resume.json --format pdf
+```
+
+## Validation and errors
+
+- Invalid resume structure fails fast with a schema error.
+- Missing `--input` and no `./resume.json` fails with an input error.
+- Errors are printed in ASCII-safe text for terminal compatibility.
