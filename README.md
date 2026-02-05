@@ -11,6 +11,14 @@ pnpm install
 pnpm build
 ```
 
+## Development
+
+```bash
+pnpm lint
+pnpm format:check
+pnpm test
+```
+
 ## Usage
 
 Run the CLI from this repo:
@@ -20,6 +28,8 @@ Run the CLI from this repo:
 ```
 
 If `--input` is not provided, the CLI looks for `./resume.json` in the current directory.
+
+For tests, the project uses an anonymized fixture at `tests/fixtures/test_resume.json`.
 
 ## Options
 

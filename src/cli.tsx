@@ -77,7 +77,7 @@ async function exportAll(
   resume: Resume,
   args: CliArgs,
   inputPath: string,
-  baseNameOverride?: string
+  baseNameOverride?: string,
 ): Promise<string[]> {
   const outDir = path.resolve(process.cwd(), args.outDir ?? 'out')
   const baseName = baseNameOverride ?? path.basename(inputPath, path.extname(inputPath))
@@ -135,13 +135,7 @@ async function exportAll(
   return written
 }
 
-function FilenamePrompt({
-  defaultValue,
-  onSubmit,
-}: {
-  defaultValue: string
-  onSubmit: (baseName: string) => void
-}) {
+function FilenamePrompt({ defaultValue, onSubmit }: { defaultValue: string; onSubmit: (baseName: string) => void }) {
   const [value, setValue] = useState('')
 
   useInput((input, key) => {
@@ -251,7 +245,14 @@ function App({ argv }: { argv: string[] }) {
     return (
       <FilenamePrompt
         defaultValue={status.defaultBaseName}
-        onSubmit={(baseName) => setStatus({ step: 'exporting', inputPath: status.inputPath, resume: status.resume, baseName })}
+        onSubmit={(baseName) =>
+          setStatus({
+            step: 'exporting',
+            inputPath: status.inputPath,
+            resume: status.resume,
+            baseName,
+          })
+        }
       />
     )
   if (status.step === 'exporting') return <Text>Exporting...</Text>

@@ -46,7 +46,7 @@ export async function exportPdfFromHtml(html: string, outPath: string): Promise<
   const chrome = findChromeExecutable()
   if (!chrome) {
     throw new Error(
-      'PDF export requires Chrome/Chromium. Install Google Chrome or set CHROME_PATH to a Chromium-based browser executable.'
+      'PDF export requires Chrome/Chromium. Install Google Chrome or set CHROME_PATH to a Chromium-based browser executable.',
     )
   }
 
@@ -62,9 +62,7 @@ export async function exportPdfFromHtml(html: string, outPath: string): Promise<
     const res = spawnSync(chrome, args, { encoding: 'utf8' })
     if (res.status !== 0) {
       const details = [res.stderr, res.stdout].filter(Boolean).join('\n').trim()
-      throw new Error(
-        `PDF export failed to run Chrome/Chromium.\n\nCommand: ${chrome} ${args.join(' ')}\n\n${details}`
-      )
+      throw new Error(`PDF export failed to run Chrome/Chromium.\n\nCommand: ${chrome} ${args.join(' ')}\n\n${details}`)
     }
   } finally {
     await rm(tmpDir, { recursive: true, force: true })

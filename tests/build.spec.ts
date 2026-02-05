@@ -8,4 +8,3 @@ describe('build', () => {
     expect(res.status).toBe(0)
   })
 })
-

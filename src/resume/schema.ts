@@ -36,7 +36,7 @@ const RoleTargetsSchema = z.record(
         })
         .strict(),
     })
-    .strict()
+    .strict(),
 )
 
 export const ResumeSchema = z

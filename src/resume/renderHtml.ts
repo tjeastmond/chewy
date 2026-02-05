@@ -35,10 +35,7 @@ function buildSkillsOrdered(resume: Resume, skillsOrder?: string[]) {
     .map((label) => ({ label, items: resume.skills[label] }))
 }
 
-export async function renderHtml(
-  resume: Resume,
-  options: RenderHtmlOptions
-): Promise<string> {
+export async function renderHtml(resume: Resume, options: RenderHtmlOptions): Promise<string> {
   Handlebars.registerHelper('stripProtocol', stripProtocol)
   Handlebars.registerHelper('join', join)
   Handlebars.registerHelper('eq', eq)
@@ -67,13 +64,9 @@ export async function renderHtml(
   })()
 
   const summary =
-    resume.summaries[options.summaryKey] ??
-    resume.summaries.default ??
-    Object.values(resume.summaries)[0] ??
-    ''
+    resume.summaries[options.summaryKey] ?? resume.summaries.default ?? Object.values(resume.summaries)[0] ?? ''
 
-  const skillsOrder =
-    resume.role_targets?.[options.roleKey]?.emphasis?.skills_order
+  const skillsOrder = resume.role_targets?.[options.roleKey]?.emphasis?.skills_order
 
   const html = Handlebars.compile(template)({
     ...resume,
