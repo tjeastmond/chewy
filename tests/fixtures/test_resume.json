@@ -1,12 +1,12 @@
 {
-  "name": "TJ Eastmond",
+  "name": "Arthur Morgan",
   "title": "Senior Software Engineer & Technical Leader",
   "contact": {
-    "email": "tj.eastmond@gmail.com",
-    "phone": "732-983-8789",
-    "location": "New Jersey",
-    "linkedin": "https://linkedin.com/in/tjeastmond",
-    "github": "https://github.com/tjeastmond"
+    "email": "alex.morgan@example.com",
+    "phone": "555-010-2486",
+    "location": "United States",
+    "linkedin": "https://linkedin.com/in/alex-morgan-eng",
+    "github": "https://github.com/alexmorgan-eng"
   },
   "summaries": {
     "default": "Product-minded Senior Software Engineer and technical leader with nearly 20 years of experience designing, building, and operating scalable platforms, APIs, and data systems. Brings deep hands-on expertise across backend systems, data engineering, and modern JavaScript architectures, with a track record of technical ownership, cross-functional leadership, and delivery of complex initiatives from concept to production.",
@@ -15,7 +15,7 @@
   },
   "experience": [
     {
-      "company": "ADP / Sora",
+      "company": "Enterprise HR Platform (Contract)",
       "role": "Lead Senior Engineer",
       "start": "2025-04",
       "end": null,
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "company": "Yogi",
+      "company": "Analytics SaaS Startup",
       "role": "Senior Engineer",
       "start": "2023-11",
       "end": "2024-03",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "company": "Lunchbox",
+      "company": "Digital Commerce Platform",
       "role": "Senior Engineering Manager / Senior Staff Engineer",
       "start": "2021-04",
       "end": "2023-07",
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "company": "DriveWealth",
+      "company": "Fintech Brokerage Platform",
       "role": "Principal Software Engineer / Engineering Manager",
       "start": "2020-01",
       "end": "2021-02",
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "company": "Rubicon Project / Magnite",
+      "company": "AdTech Infrastructure Company",
       "role": "Senior Software Engineer",
       "start": "2019-06",
       "end": "2020-01",
@@ -89,7 +89,7 @@
       ]
     },
     {
-      "company": "Barkly Pets",
+      "company": "Consumer Services App",
       "role": "Senior Software Engineer",
       "start": "2018-10",
       "end": "2019-06",
@@ -101,53 +101,53 @@
       ]
     },
     {
-      "company": "NYSHEX",
+      "company": "Logistics Marketplace",
       "role": "Principal Software Engineer",
       "start": "2018-06",
       "end": "2018-09",
       "dates_display": "Jun 2018 - Sep 2018",
-      "location": "New York, NY",
+      "location": "New York Metro",
       "highlights": [
         "Established JavaScript engineering standards and led migration from Angular to React and Redux"
       ]
     },
     {
-      "company": "iCIMS",
+      "company": "Talent Acquisition SaaS",
       "role": "Lead Software Engineer",
       "start": "2015-10",
       "end": "2018-01",
       "dates_display": "Oct 2015 - Jan 2018",
-      "location": "Holmdel, New Jersey",
+      "location": "Hybrid (US)",
       "highlights": [
         "Engineered the company's first large-scale data pipelines using Databricks, Scala, and Spark",
         "Led migration of the codebase to Git and established release workflows across teams"
       ]
     },
     {
-      "company": "Jirafe",
+      "company": "Retail Analytics Platform",
       "role": "Director of Software Engineering",
       "start": "2013-11",
       "end": "2015-10",
       "dates_display": "Nov 2013 - Oct 2015",
-      "location": "New York, NY",
+      "location": "New York Metro",
       "highlights": []
     },
     {
-      "company": "SPIN Magazine",
+      "company": "Digital Media Publisher",
       "role": "Lead Software Engineer",
       "start": "2011-11",
       "end": "2013-10",
       "dates_display": "Nov 2011 - Oct 2013",
-      "location": "SoHo, New York, NY",
+      "location": "New York Metro",
       "highlights": []
     },
     {
-      "company": "eFashion Solutions",
+      "company": "E-commerce Platform Agency",
       "role": "Director of Software Development",
       "start": "2004-09",
       "end": "2011-10",
       "dates_display": "Sep 2004 - Oct 2011",
-      "location": "Secaucus, New Jersey",
+      "location": "Onsite (US)",
       "highlights": []
     }
   ],

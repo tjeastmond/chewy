@@ -50,7 +50,7 @@ The resume JSON schema includes:
 - `role_targets`: Optional object for role-specific rendering (keywords, emphasis with summary key and skills_order)
 
 ### CLI Options
-- `--input`, `-i`: Path to resume JSON (defaults to `./tjeastmond.json` or `./resume.json`)
+- `--input`, `-i`: Path to resume JSON (defaults to `./resume.json`)
 - `--out-dir`, `-o`: Output directory (default: `./out`)
 - `--format`, `-f`: Comma-separated list or "all" (default: all formats)
 - `--summary`: Summary key to use from the `summaries` object (default: "default")

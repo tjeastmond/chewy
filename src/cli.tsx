@@ -54,17 +54,13 @@ function parseArgs(argv: string[]): CliArgs {
 }
 
 async function findDefaultInput(cwd: string): Promise<string> {
-  const candidates = ['tjeastmond.json', 'resume.json']
-  for (const c of candidates) {
-    const full = path.resolve(cwd, c)
-    try {
-      await readFile(full, 'utf8')
-      return full
-    } catch {
-      // continue
-    }
+  const full = path.resolve(cwd, 'resume.json')
+  try {
+    await readFile(full, 'utf8')
+    return full
+  } catch {
+    throw new Error('No input provided and no default resume JSON found at ./resume.json.')
   }
-  throw new Error('No input provided and no default resume JSON found in current directory.')
 }
 
 async function loadResume(inputPath: string): Promise<Resume> {

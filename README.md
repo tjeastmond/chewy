@@ -19,7 +19,7 @@ Run the CLI from this repo:
 ./bin/chewy --input ./resume.json
 ```
 
-If `--input` is not provided, the CLI looks for `./tjeastmond.json` or `./resume.json` in the current directory.
+If `--input` is not provided, the CLI looks for `./resume.json` in the current directory.
 
 ## Options
 
