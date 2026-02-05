@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Box, render, Text, useInput } from 'ink'
@@ -50,13 +50,31 @@ function parseArgs(argv: string[]): CliArgs {
   return args
 }
 
-async function findDefaultInput(cwd: string): Promise<string> {
+export async function findDefaultInput(cwd: string): Promise<string> {
   const full = path.resolve(cwd, 'resume.json')
   try {
     await readFile(full, 'utf8')
     return full
   } catch {
-    throw new Error('No input provided and no default resume JSON found at ./resume.json.')
+    // Fall back to any JSON file in cwd that validates as a resume.
+    const entries = await readdir(cwd)
+    const jsonFiles = entries.filter((name) => name.toLowerCase().endsWith('.json') && name !== 'resume.json').sort()
+
+    for (const file of jsonFiles) {
+      const candidatePath = path.resolve(cwd, file)
+      try {
+        const raw = await readFile(candidatePath, 'utf8')
+        const json = JSON.parse(raw) as unknown
+        const parsed = ResumeSchema.safeParse(json)
+        if (parsed.success) return candidatePath
+      } catch {
+        // Ignore unreadable or invalid JSON files and keep searching.
+      }
+    }
+
+    throw new Error(
+      'No input provided and no default resume JSON found at ./resume.json or any schema-valid JSON file in the current directory.',
+    )
   }
 }
 

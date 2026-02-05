@@ -47,10 +47,7 @@ Minimal example:
       "end": null,
       "dates_display": "Jan 2021 - Present",
       "location": "Remote",
-      "highlights": [
-        "Led migration of core services.",
-        "Reduced deploy time by 40%."
-      ]
+      "highlights": ["Led migration of core services.", "Reduced deploy time by 40%."]
     }
   ],
   "skills": {
