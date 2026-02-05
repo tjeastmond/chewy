@@ -1,10 +1,10 @@
-# export-resume
+# chewy
 
 Export a resume JSON file into multiple formats from the command line.
 
 ## Install
 
-This repo builds a local CLI binary named `export-resume`.
+This repo builds a local CLI binary named `chewy`.
 
 ```bash
 pnpm install
@@ -16,7 +16,7 @@ pnpm build
 Run the CLI from this repo:
 
 ```bash
-./bin/export-resume --input ./resume.json
+./bin/chewy --input ./resume.json
 ```
 
 If `--input` is not provided, the CLI looks for `./tjeastmond.json` or `./resume.json` in the current directory.
@@ -48,17 +48,17 @@ Note: `pdf` export requires Chrome/Chromium. Install Google Chrome or set `CHROM
 Export everything to `./out`:
 
 ```bash
-./bin/export-resume --input ./resume.json --out-dir ./out --format all
+./bin/chewy --input ./resume.json --out-dir ./out --format all
 ```
 
 Export only HTML and TXT:
 
 ```bash
-./bin/export-resume -i ./resume.json -f html,txt
+./bin/chewy -i ./resume.json -f html,txt
 ```
 
 Use a custom template and select which summary/role to render:
 
 ```bash
-./bin/export-resume -i ./resume.json --template ./template.html --summary default --role staffplus
+./bin/chewy -i ./resume.json --template ./template.html --summary default --role staffplus
 ```

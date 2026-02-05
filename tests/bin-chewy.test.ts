@@ -7,7 +7,7 @@ import { describe, expect, test } from 'vitest'
 
 describe('bin/chewy', () => {
   test('prints a helpful message if dist output is missing', async () => {
-    const tmp = await mkdtemp(path.join(os.tmpdir(), 'export-resume-'))
+    const tmp = await mkdtemp(path.join(os.tmpdir(), 'chewy-'))
     const src = await readFile(path.resolve(process.cwd(), 'bin/chewy'), 'utf8')
 
     const tmpBin = path.join(tmp, 'chewy.mjs')

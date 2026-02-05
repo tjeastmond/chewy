@@ -4,7 +4,6 @@
   "description": "",
   "type": "module",
   "bin": {
-    "export-resume": "bin/export-resume",
     "chewy": "bin/chewy"
   },
   "scripts": {
