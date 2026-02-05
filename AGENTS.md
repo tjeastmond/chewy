@@ -97,6 +97,7 @@ See `.ai/known_issues.md` for tracked bugs and improvements, including:
 - Integration tests spawn the bin scripts with `spawnSync`
 - Unit tests validate schema parsing, exporters, and HTML rendering
 - All text output must be ASCII-only (no smart quotes, em-dashes, or Unicode characters)
+- When joining fields in rendered output (for example `company` and `role`), use ASCII separators directly (prefer ` - `), not Unicode punctuation that will be normalized later (for example em dash -> `--`)
 
 ## Package Manager
 

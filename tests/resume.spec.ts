@@ -44,11 +44,15 @@ describe('resume exports', () => {
     const asText = exportText(resume)
     expect(asText).toMatch(/Arthur Morgan/)
     expect(asText).toMatch(/EXPERIENCE/)
+    expect(asText).toContain('Logistics Marketplace - Principal Software Engineer')
+    expect(asText).not.toContain('Logistics Marketplace -- Principal Software Engineer')
     expectAsciiOnly(asText)
 
     const html = await renderHtml(resume, { summaryKey: 'default' })
     expect(html).toMatch(/<title>.*Resume<\/title>/)
     expect(html).toMatch(/Arthur Morgan/)
+    expect(html).toContain('Logistics Marketplace - Principal Software Engineer')
+    expect(html).not.toContain('Logistics Marketplace -- Principal Software Engineer')
     // Font sizes should be kept in sync with the print/PDF styles in the template.
     expect(html).toContain('h1 { font-size: 47px;')
     expect(html).toContain('.tagline { font-size: 13px;')

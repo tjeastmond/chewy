@@ -57,7 +57,7 @@ export function exportText(resume: Resume): string {
 
   lines.push('EXPERIENCE')
   for (const job of resume.experience) {
-    lines.push(`${job.company} — ${job.role}`)
+    lines.push(`${job.company} - ${job.role}`)
     lines.push(`${job.dates_display} / ${job.location}`)
     for (const h of job.highlights) lines.push(`- ${h}`)
     lines.push('')
