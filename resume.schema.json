@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Resume",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "title", "contact", "summaries", "experience", "skills"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["email", "phone", "location", "linkedin", "github"],
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "minLength": 1 },
+        "linkedin": { "type": "string", "format": "uri" },
+        "github": { "type": "string", "format": "uri" }
+      }
+    },
+    "summaries": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "company",
+          "role",
+          "start",
+          "end",
+          "dates_display",
+          "location",
+          "highlights"
+        ],
+        "properties": {
+          "company": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "start": { "type": "string", "minLength": 1 },
+          "end": { "type": ["string", "null"] },
+          "dates_display": { "type": "string", "minLength": 1 },
+          "location": { "type": "string", "minLength": 1 },
+          "highlights": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "role_targets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["keywords", "emphasis"],
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "emphasis": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary", "skills_order"],
+            "properties": {
+              "summary": { "type": "string", "minLength": 1 },
+              "skills_order": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {}
+    }
+  }
+}

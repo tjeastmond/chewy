@@ -3,9 +3,9 @@ import path from 'node:path'
 
 import { describe, expect, test } from 'vitest'
 
-describe('json-schema.json', () => {
+describe('resume.schema.json', () => {
   test('is valid JSON and has basic schema metadata', async () => {
-    const raw = await readFile(path.resolve(process.cwd(), 'json-schema.json'), 'utf8')
+    const raw = await readFile(path.resolve(process.cwd(), 'resume.schema.json'), 'utf8')
     const json = JSON.parse(raw) as Record<string, unknown>
 
     expect(json.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
