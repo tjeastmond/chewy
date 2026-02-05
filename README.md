@@ -57,15 +57,6 @@ Minimal example:
     "languages": ["TypeScript", "Python"],
     "platforms": ["AWS", "Docker"]
   },
-  "role_targets": {
-    "staffplus": {
-      "keywords": ["architecture", "leadership"],
-      "emphasis": {
-        "summary": "backend",
-        "skills_order": ["platforms", "languages"]
-      }
-    }
-  },
   "projects": []
 }
 ```
@@ -90,10 +81,10 @@ Set output directory:
 ./bin/chewy --input ./resume.json --out-dir ./dist/resume
 ```
 
-Choose summary variant and role target (affects HTML/PDF rendering):
+Choose summary variant:
 
 ```bash
-./bin/chewy --input ./resume.json --summary backend --role staffplus
+./bin/chewy --input ./resume.json --summary backend
 ```
 
 Use a custom Handlebars template:
@@ -120,7 +111,6 @@ Example: input `resume.json`, selected formats `html,pdf`:
 - `--out-dir`, `-o`: Output directory. Default: `./out`.
 - `--format`, `-f`: `all` or comma-separated list of `html,pdf,json,csv,yaml,txt`.
 - `--summary`: Summary key from `summaries`. Default: `default`.
-- `--role`: Role key from `role_targets`. Default: `staffplus`.
 - `--template`: Custom Handlebars template path.
 
 ## PDF requirement

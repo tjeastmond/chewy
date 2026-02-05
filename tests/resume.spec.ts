@@ -46,7 +46,7 @@ describe('resume exports', () => {
     expect(asText).toMatch(/EXPERIENCE/)
     expectAsciiOnly(asText)
 
-    const html = await renderHtml(resume, { summaryKey: 'default', roleKey: 'staffplus' })
+    const html = await renderHtml(resume, { summaryKey: 'default' })
     expect(html).toMatch(/<title>.*Resume<\/title>/)
     expect(html).toMatch(/Arthur Morgan/)
     // Font sizes should be kept in sync with the print/PDF styles in the template.

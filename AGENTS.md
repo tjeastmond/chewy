@@ -55,7 +55,7 @@ Run the CLI locally (after building):
 
 - `src/resume/schema.ts`: Zod schema for resume validation (ResumeSchema)
 - `src/resume/exporters.ts`: Functions to export resume data to JSON, YAML, CSV, and plain text formats
-- `src/resume/renderHtml.ts`: Handlebars-based HTML rendering with support for role-targeted summaries and skill ordering
+- `src/resume/renderHtml.ts`: Handlebars-based HTML rendering
 - `src/resume/exportPdf.ts`: PDF generation by spawning Chrome/Chromium in headless mode
 - `templates/resume.hbs`: Default Handlebars template for HTML/PDF output
 
@@ -67,7 +67,6 @@ The resume JSON schema includes:
 - `summaries`: Object with named summary variants (e.g., "default", "backend", "staffplus")
 - `experience`: Array of job entries with company, role, dates, location, and highlights
 - `skills`: Object mapping skill categories to arrays of skills
-- `role_targets`: Optional object for role-specific rendering (keywords, emphasis with summary key and skills_order)
 
 ### CLI Options
 
@@ -75,7 +74,6 @@ The resume JSON schema includes:
 - `--out-dir`, `-o`: Output directory (default: `./out`)
 - `--format`, `-f`: Comma-separated list or "all" (default: all formats)
 - `--summary`: Summary key to use from the `summaries` object (default: "default")
-- `--role`: Role key for targeted rendering using `role_targets` (default: "staffplus")
 - `--template`: Path to custom Handlebars template (default: `templates/resume.hbs`)
 
 ### Build System

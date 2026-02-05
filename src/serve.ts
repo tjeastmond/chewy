@@ -7,7 +7,6 @@ type ServeArgs = {
   port: number
   input?: string
   summaryKey: string
-  roleKey: string
   template?: string
 }
 
@@ -16,7 +15,6 @@ function parseArgs(argv: string[]): ServeArgs {
     host: '127.0.0.1',
     port: 3000,
     summaryKey: 'default',
-    roleKey: 'staffplus',
   }
 
   const readValue = (i: number) => {
@@ -31,7 +29,6 @@ function parseArgs(argv: string[]): ServeArgs {
     if (a === '--port' || a === '-p') args.port = Number(readValue(i))
     if (a === '--input' || a === '-i') args.input = readValue(i)
     if (a === '--summary') args.summaryKey = readValue(i)
-    if (a === '--role') args.roleKey = readValue(i)
     if (a === '--template') args.template = readValue(i)
   }
 
@@ -48,7 +45,6 @@ export async function runServe(argv = process.argv.slice(2)) {
   const server = createResumeServer({
     inputPath: args.input,
     summaryKey: args.summaryKey,
-    roleKey: args.roleKey,
     templatePath: args.template,
   })
 
