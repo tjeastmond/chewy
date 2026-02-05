@@ -1,0 +1,31 @@
+{
+  "name": "TJ Eastmond",
+  "title": "Staff Software Engineer",
+  "contact": {
+    "email": "tj@example.com",
+    "phone": "555-555-5555",
+    "location": "Boston, MA",
+    "linkedin": "https://www.linkedin.com/in/tjeastmond",
+    "github": "https://github.com/tjeastmond"
+  },
+  "summaries": {
+    "default": "Experienced engineer building reliable systems.",
+    "staffplus": "Experienced engineer building reliable systems."
+  },
+  "experience": [
+    {
+      "company": "ExampleCo",
+      "role": "Software Engineer",
+      "start": "2020-01",
+      "end": null,
+      "dates_display": "2020 - Present",
+      "location": "Remote",
+      "highlights": ["Built internal tools.", "Improved performance."]
+    }
+  ],
+  "skills": {
+    "Languages": ["TypeScript", "Go"],
+    "Tools": ["Node.js", "PostgreSQL"]
+  },
+  "projects": []
+}

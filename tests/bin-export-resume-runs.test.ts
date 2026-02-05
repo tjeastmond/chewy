@@ -16,7 +16,7 @@ describe('bin/export-resume (built)', () => {
     const build = spawnSync('pnpm', ['build'], { encoding: 'utf8' })
     expect(build.status).toBe(0)
 
-    const input = path.resolve(process.cwd(), 'tjeastmond.json')
+    const input = path.resolve(process.cwd(), 'tests/fixtures/tjeastmond.json')
     const outRoot = path.resolve(process.cwd(), 'out')
     await mkdir(outRoot, { recursive: true })
 

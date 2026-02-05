@@ -6,7 +6,7 @@ import { ResumeSchema } from '../src/resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from '../src/resume/exporters.js'
 import { renderHtml } from '../src/resume/renderHtml.js'
 
-const fixturePath = path.resolve(process.cwd(), 'tjeastmond.json')
+const fixturePath = path.resolve(process.cwd(), 'tests/fixtures/tjeastmond.json')
 
 function expectAsciiOnly(value: string) {
   // Allow ASCII printable chars plus common whitespace (\t, \n, \r).
@@ -49,6 +49,23 @@ describe('resume exports', () => {
     const html = await renderHtml(resume, { summaryKey: 'default', roleKey: 'staffplus' })
     expect(html).toMatch(/<title>.*Resume<\/title>/)
     expect(html).toMatch(/TJ Eastmond/)
+    // Font sizes should be kept in sync with the print/PDF styles in the template.
+    expect(html).toContain('h1 { font-size: 47px;')
+    expect(html).toContain('.tagline { font-size: 13px;')
+    expect(html).toContain('.contact { font-size: 13px;')
+    expect(html).toContain('font-size: 15px;')
+    expect(html).toContain('.skills { font-size: 13px;')
+    expect(html).toContain('.summary { font-size: 14px;')
+    expect(html).toContain('.job-title { font-weight: bold; font-size: 17px;')
+    expect(html).toContain('.job-meta { font-size: 12px;')
+    expect(html).toContain('li { margin-bottom: 6px; font-size: 13px;')
+    expect(html).toContain('@media print')
+    expect(html).toContain('h1 { font-size: 40px; }')
+    expect(html).toContain('.skills { font-size: 12px;')
+    expect(html).toContain('.summary { font-size: 13px;')
+    expect(html).toContain('.job-title { font-size: 15px; }')
+    expect(html).toContain('.job-meta { font-size: 11px;')
+    expect(html).toContain('li { font-size: 12px;')
     expectAsciiOnly(html)
   })
 })
