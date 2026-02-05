@@ -9,17 +9,22 @@ const __dirname = path.dirname(__filename)
 
 const HELP_TEXT = `Usage: chewy [options]
 
-Exports resume JSON into HTML, PDF, JSON, CSV, YAML, and TXT.
+Description:
+  Export resume JSON into HTML, PDF, JSON, CSV, YAML, and TXT.
 
 Options:
   -h, --help              Show this help message
-  -i, --input <path>      Path to resume JSON (default: ./resume.json)
+  -i, --input <path>      Resume JSON path (default: ./resume.json)
   -o, --out-dir <path>    Output directory (default: ./out)
-  -f, --format <list>     all or comma-separated formats
-                          (html,pdf,json,csv,yaml,txt)
+  -f, --format <list>     all or comma-separated formats:
+                          html,pdf,json,csv,yaml,txt
       --summary <key>     Summary key from summaries (default: default)
-      --role <key>        Role key from role_targets (default: staffplus)
-      --template <path>   Path to a custom Handlebars template
+      --template <path>   Custom Handlebars template path
+
+Examples:
+  chewy --input ./resume.json
+  chewy --input ./resume.json --format html,pdf --out-dir ./out
+  chewy --input ./resume.json --summary backend
 `
 
 function wantsHelp(argv) {

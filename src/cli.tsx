@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import React, { useEffect, useMemo, useState } from 'react'
-import { render, Text, useInput } from 'ink'
+import { Box, render, Text, useInput } from 'ink'
 
 import { ResumeSchema, type Resume } from './resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporters.js'
@@ -17,7 +17,6 @@ type CliArgs = {
   outDir?: string
   formats: Format[]
   summaryKey: string
-  roleKey: string
   template?: string
 }
 
@@ -25,7 +24,6 @@ function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = {
     formats: ['html', 'pdf', 'json', 'csv', 'yaml', 'txt'],
     summaryKey: 'default',
-    roleKey: 'staffplus',
   }
 
   const readValue = (i: number) => {
@@ -46,7 +44,6 @@ function parseArgs(argv: string[]): CliArgs {
           : (v.split(',').map((s) => s.trim().toLowerCase()) as Format[])
     }
     if (a === '--summary') args.summaryKey = readValue(i)
-    if (a === '--role') args.roleKey = readValue(i)
     if (a === '--template') args.template = readValue(i)
   }
 
@@ -91,7 +88,6 @@ async function exportAll(
     wantsHtml || wantsPdf
       ? await renderHtml(resume, {
           summaryKey: args.summaryKey,
-          roleKey: args.roleKey,
           templatePath: args.template,
         })
       : null
@@ -166,11 +162,73 @@ function FilenamePrompt({ defaultValue, onSubmit }: { defaultValue: string; onSu
   const shown = value.length ? value : defaultValue
 
   return (
-    <>
-      <Text>Output file name (without extension):</Text>
-      <Text>&gt; {shown}</Text>
-      <Text>(Press Enter to accept)</Text>
-    </>
+    <Box flexDirection="column" gap={1}>
+      <Text color="cyan">Name your output files</Text>
+      <Text dimColor>Set a base name used for every selected export format.</Text>
+      <Box borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
+        <Text>
+          {shown}
+          <Text color="gray">_</Text>
+        </Text>
+      </Box>
+      <Text dimColor>Press Enter to continue</Text>
+    </Box>
+  )
+}
+
+function ConfirmExport({
+  inputPath,
+  outDir,
+  formats,
+  baseName,
+  onConfirm,
+  onBack,
+}: {
+  inputPath: string
+  outDir: string
+  formats: Format[]
+  baseName: string
+  onConfirm: () => void
+  onBack: () => void
+}) {
+  useInput((input, key) => {
+    if (key.ctrl && input.toLowerCase() === 'c') {
+      process.exitCode = 130
+      process.exit(130)
+    }
+
+    const isEnter = Boolean(key.return) || input === '\n' || input === '\r'
+    if (isEnter) {
+      onConfirm()
+      return
+    }
+
+    if (key.escape) {
+      onBack()
+    }
+  })
+
+  return (
+    <Box flexDirection="column" gap={1}>
+      <Text color="green">Review export settings</Text>
+      <Box borderStyle="round" borderColor="gray" paddingX={1}>
+        <Box flexDirection="column">
+          <Text>
+            Input: <Text color="cyan">{inputPath}</Text>
+          </Text>
+          <Text>
+            Output dir: <Text color="cyan">{outDir}</Text>
+          </Text>
+          <Text>
+            Base name: <Text color="cyan">{baseName}</Text>
+          </Text>
+          <Text>
+            Formats: <Text color="cyan">{formats.join(', ')}</Text>
+          </Text>
+        </Box>
+      </Box>
+      <Text dimColor>Press Enter to export, Esc to rename</Text>
+    </Box>
   )
 }
 
@@ -180,6 +238,7 @@ function App({ argv }: { argv: string[] }) {
     | { step: 'init' }
     | { step: 'loading'; inputPath: string }
     | { step: 'prompting'; inputPath: string; resume: Resume; defaultBaseName: string }
+    | { step: 'confirming'; inputPath: string; resume: Resume; defaultBaseName: string; baseName: string }
     | { step: 'exporting'; inputPath: string; resume: Resume; baseName: string }
     | { step: 'done'; written: string[] }
     | { step: 'error'; message: string }
@@ -247,10 +306,36 @@ function App({ argv }: { argv: string[] }) {
         defaultValue={status.defaultBaseName}
         onSubmit={(baseName) =>
           setStatus({
+            step: 'confirming',
+            inputPath: status.inputPath,
+            resume: status.resume,
+            defaultBaseName: status.defaultBaseName,
+            baseName: sanitizeBaseName(baseName) || 'resume',
+          })
+        }
+      />
+    )
+  if (status.step === 'confirming')
+    return (
+      <ConfirmExport
+        inputPath={status.inputPath}
+        outDir={path.resolve(process.cwd(), args.outDir ?? 'out')}
+        formats={args.formats}
+        baseName={status.baseName}
+        onConfirm={() =>
+          setStatus({
             step: 'exporting',
             inputPath: status.inputPath,
             resume: status.resume,
-            baseName,
+            baseName: status.baseName,
+          })
+        }
+        onBack={() =>
+          setStatus({
+            step: 'prompting',
+            inputPath: status.inputPath,
+            resume: status.resume,
+            defaultBaseName: status.baseName,
           })
         }
       />
@@ -259,12 +344,13 @@ function App({ argv }: { argv: string[] }) {
   if (status.step === 'error') return <Text>ERROR: {sanitizeAscii(status.message)}</Text>
 
   return (
-    <>
+    <Box flexDirection="column">
+      <Text color="green">Export complete</Text>
       <Text>Wrote:</Text>
       {status.written.map((p) => (
         <Text key={p}>- {p}</Text>
       ))}
-    </>
+    </Box>
   )
 }
 
