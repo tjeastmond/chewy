@@ -26,14 +26,14 @@ Minimal example:
 
 ```json
 {
-  "name": "Alex Candidate",
+  "name": "Arthur Morgan",
   "title": "Senior Software Engineer",
   "contact": {
-    "email": "alex@example.com",
+    "email": "arthur.morgan@example.com",
     "phone": "555-0100",
     "location": "Austin, TX",
-    "linkedin": "https://www.linkedin.com/in/alexcandidate",
-    "github": "https://github.com/alexcandidate"
+    "linkedin": "https://www.linkedin.com/in/arthurmorgan",
+    "github": "https://github.com/arthurmorgan"
   },
   "summaries": {
     "default": "Senior engineer with experience building web products.",
