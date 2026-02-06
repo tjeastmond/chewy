@@ -240,7 +240,7 @@ function ConfirmExport({
 
 function App({ argv }: { argv: string[] }) {
   const args = useMemo(() => parseArgs(argv), [argv])
-  const isInteractiveTerminal = process.stdin.isTTY && process.stdout.isTTY
+  const hasTty = process.stdin.isTTY && process.stdout.isTTY
   const [status, setStatus] = useState<
     | { step: 'init' }
     | { step: 'loading'; inputPath: string }
@@ -256,8 +256,8 @@ function App({ argv }: { argv: string[] }) {
 
     const run = async () => {
       try {
-        if (!isInteractiveTerminal) {
-          throw new Error('Interactive mode requires a TTY terminal for prompts. Re-run chewy in an interactive shell.')
+        if (!hasTty) {
+          throw new Error('A TTY terminal is required for prompts. Re-run chewy in an interactive shell.')
         }
 
         const cwd = process.cwd()
