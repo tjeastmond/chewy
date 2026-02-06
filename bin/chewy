@@ -11,6 +11,7 @@ const HELP_TEXT = `Usage: chewy [options]
 
 Description:
   Export resume JSON into HTML, PDF, JSON, CSV, YAML, and TXT.
+  Interactive mode only (TTY required).
 
 Options:
   -h, --help              Show this help message

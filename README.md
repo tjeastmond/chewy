@@ -92,7 +92,8 @@ Use a custom Handlebars template:
 
 ### 3. Pick output base filename when prompted
 
-When running in an interactive terminal, Chewy prompts for output filename (without extension).
+Chewy runs in interactive mode only and requires a TTY terminal.
+It prompts for output filename (without extension).
 
 If you press Enter, it uses the input filename.
 
