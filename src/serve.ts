@@ -1,6 +1,7 @@
 import type { AddressInfo } from 'node:net'
 
 import { createResumeServer } from './server.js'
+import { readRequiredArgValue } from './utils/argv.js'
 
 type ServeArgs = {
   host: string
@@ -17,19 +18,13 @@ function parseArgs(argv: string[]): ServeArgs {
     summaryKey: 'default',
   }
 
-  const readValue = (i: number) => {
-    const v = argv[i + 1]
-    if (!v) throw new Error(`Missing value for ${argv[i]}`)
-    return v
-  }
-
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]
-    if (a === '--host') args.host = readValue(i)
-    if (a === '--port' || a === '-p') args.port = Number(readValue(i))
-    if (a === '--input' || a === '-i') args.input = readValue(i)
-    if (a === '--summary') args.summaryKey = readValue(i)
-    if (a === '--template') args.template = readValue(i)
+    if (a === '--host') args.host = readRequiredArgValue(argv, i)
+    if (a === '--port' || a === '-p') args.port = Number(readRequiredArgValue(argv, i))
+    if (a === '--input' || a === '-i') args.input = readRequiredArgValue(argv, i)
+    if (a === '--summary') args.summaryKey = readRequiredArgValue(argv, i)
+    if (a === '--template') args.template = readRequiredArgValue(argv, i)
   }
 
   if (!Number.isFinite(args.port) || args.port <= 0 || args.port > 65535) {

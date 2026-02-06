@@ -7,6 +7,7 @@ import { ResumeSchema, type Resume } from './resume/schema.js'
 import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporters.js'
 import { exportPdfFromHtml } from './resume/exportPdf.js'
 import { renderHtml } from './resume/renderHtml.js'
+import { readRequiredArgValue } from './utils/argv.js'
 import { sanitizeBaseName } from './utils/sanitizeBaseName.js'
 import { sanitizeAscii } from './utils/sanitizeAscii.js'
 
@@ -26,25 +27,19 @@ function parseArgs(argv: string[]): CliArgs {
     summaryKey: 'default',
   }
 
-  const readValue = (i: number) => {
-    const v = argv[i + 1]
-    if (!v) throw new Error(`Missing value for ${argv[i]}`)
-    return v
-  }
-
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]
-    if (a === '--input' || a === '-i') args.input = readValue(i)
-    if (a === '--out-dir' || a === '-o') args.outDir = readValue(i)
+    if (a === '--input' || a === '-i') args.input = readRequiredArgValue(argv, i)
+    if (a === '--out-dir' || a === '-o') args.outDir = readRequiredArgValue(argv, i)
     if (a === '--format' || a === '-f') {
-      const v = readValue(i)
+      const v = readRequiredArgValue(argv, i)
       args.formats =
         v === 'all'
           ? ['html', 'pdf', 'json', 'csv', 'yaml', 'txt']
           : (v.split(',').map((s) => s.trim().toLowerCase()) as Format[])
     }
-    if (a === '--summary') args.summaryKey = readValue(i)
-    if (a === '--template') args.template = readValue(i)
+    if (a === '--summary') args.summaryKey = readRequiredArgValue(argv, i)
+    if (a === '--template') args.template = readRequiredArgValue(argv, i)
   }
 
   return args
@@ -110,27 +105,20 @@ async function exportAll(
         })
       : null
 
-  if (args.formats.includes('json')) {
-    const p = outPath(outDir, baseName, 'json')
-    await writeFile(p, exportJson(resume), 'utf8')
-    written.push(p)
-  }
+  const fileWriters: Array<{
+    format: Extract<Format, 'json' | 'yaml' | 'csv' | 'txt'>
+    render: (r: Resume) => string
+  }> = [
+    { format: 'json', render: exportJson },
+    { format: 'yaml', render: exportYaml },
+    { format: 'csv', render: exportCsv },
+    { format: 'txt', render: exportText },
+  ]
 
-  if (args.formats.includes('yaml')) {
-    const p = outPath(outDir, baseName, 'yaml')
-    await writeFile(p, exportYaml(resume), 'utf8')
-    written.push(p)
-  }
-
-  if (args.formats.includes('csv')) {
-    const p = outPath(outDir, baseName, 'csv')
-    await writeFile(p, exportCsv(resume), 'utf8')
-    written.push(p)
-  }
-
-  if (args.formats.includes('txt')) {
-    const p = outPath(outDir, baseName, 'txt')
-    await writeFile(p, exportText(resume), 'utf8')
+  for (const writer of fileWriters) {
+    if (!args.formats.includes(writer.format)) continue
+    const p = outPath(outDir, baseName, writer.format)
+    await writeFile(p, writer.render(resume), 'utf8')
     written.push(p)
   }
 
