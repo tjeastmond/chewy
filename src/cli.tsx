@@ -73,8 +73,29 @@ export async function findDefaultInput(cwd: string): Promise<string> {
   }
 }
 
+function formatBackupTimestamp(now: Date): string {
+  return String(Math.floor(now.getTime() / 1000))
+}
+
+export async function saveResumeBackup(
+  inputPath: string,
+  raw: string,
+  options?: { historyDir?: string; now?: Date },
+): Promise<string> {
+  const historyDir = path.resolve(options?.historyDir ?? path.resolve(process.cwd(), 'history'))
+  const timestamp = formatBackupTimestamp(options?.now ?? new Date())
+  const resumeFileName = path.basename(inputPath)
+  const backupPath = path.resolve(historyDir, `${timestamp}_${resumeFileName}`)
+
+  await mkdir(historyDir, { recursive: true })
+  await writeFile(backupPath, raw, 'utf8')
+
+  return backupPath
+}
+
 async function loadResume(inputPath: string): Promise<Resume> {
   const raw = await readFile(inputPath, 'utf8')
+  await saveResumeBackup(inputPath, raw)
   const json = JSON.parse(raw) as unknown
   return ResumeSchema.parse(json)
 }
@@ -137,7 +158,15 @@ async function exportAll(
   return written
 }
 
-function FilenamePrompt({ defaultValue, onSubmit }: { defaultValue: string; onSubmit: (baseName: string) => void }) {
+function FilenamePrompt({
+  defaultValue,
+  resumeFileName,
+  onSubmit,
+}: {
+  defaultValue: string
+  resumeFileName: string
+  onSubmit: (baseName: string) => void
+}) {
   const [value, setValue] = useState('')
 
   useInput((input, key) => {
@@ -154,6 +183,11 @@ function FilenamePrompt({ defaultValue, onSubmit }: { defaultValue: string; onSu
       return
     }
 
+    if (key.escape) {
+      process.exitCode = 0
+      process.exit(0)
+    }
+
     if (key.backspace || key.delete) {
       setValue((v) => v.slice(0, -1))
       return
@@ -165,19 +199,26 @@ function FilenamePrompt({ defaultValue, onSubmit }: { defaultValue: string; onSu
     setValue((v) => v + input)
   })
 
-  const shown = value.length ? value : defaultValue
+  const shown = value.length ? value : `Set name or press enter to continue with: ${defaultValue}`
+  const isUsingDefault = value.length === 0
 
   return (
     <Box flexDirection="column" gap={1}>
-      <Text color="cyan">Name your output files</Text>
-      <Text dimColor>Set a base name used for every selected export format.</Text>
-      <Box borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
-        <Text>
-          {shown}
-          <Text color="gray">_</Text>
-        </Text>
+      <Text>
+        <Text color="#ff8c00">CHEWY</Text> . Resume: {resumeFileName}
+      </Text>
+      <Box flexDirection="column" gap={0}>
+        <Box flexDirection="column" gap={0}>
+          <Box borderTop borderBottom borderStyle="single" borderColor="#3b82f6" paddingX={1} paddingY={0}>
+            <Text>
+              <Text color="#93c5fd">&gt; </Text>
+              <Text color={isUsingDefault ? 'gray' : undefined}>{shown}</Text>
+              <Text backgroundColor="#3b82f6"> </Text>
+            </Text>
+          </Box>
+        </Box>
       </Box>
-      <Text dimColor>Press Enter to continue</Text>
+      <Text color="gray">Press Enter to continue, Esc to exit</Text>
     </Box>
   )
 }
@@ -311,6 +352,7 @@ function App({ argv }: { argv: string[] }) {
     return (
       <FilenamePrompt
         defaultValue={status.defaultBaseName}
+        resumeFileName={path.basename(status.inputPath)}
         onSubmit={(baseName) =>
           setStatus({
             step: 'confirming',
