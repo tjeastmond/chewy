@@ -196,7 +196,7 @@ function FilenamePrompt({
     // Ignore other control keys (arrows, etc)
     if (key.upArrow || key.downArrow || key.leftArrow || key.rightArrow || key.escape || key.tab) return
 
-    setValue((v) => v + input)
+    setValue((v) => (v.length ? v : defaultValue) + input)
   })
 
   const shown = value.length ? value : `Set name or press enter to continue with: ${defaultValue}`
