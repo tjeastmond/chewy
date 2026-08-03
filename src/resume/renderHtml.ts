@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import Handlebars from 'handlebars'
 
+import { resolveSummary } from './schema.js'
 import type { Resume } from './schema.js'
 import { sanitizeAscii } from '../utils/sanitizeAscii.js'
 
@@ -33,10 +34,11 @@ function buildSkillsOrdered(resume: Resume) {
     .map((label) => ({ label, items: resume.skills[label] }))
 }
 
+Handlebars.registerHelper('stripProtocol', stripProtocol)
+Handlebars.registerHelper('join', join)
+Handlebars.registerHelper('eq', eq)
+
 export async function renderHtml(resume: Resume, options: RenderHtmlOptions): Promise<string> {
-  Handlebars.registerHelper('stripProtocol', stripProtocol)
-  Handlebars.registerHelper('join', join)
-  Handlebars.registerHelper('eq', eq)
 
   const template = await (async () => {
     const candidates = options.templatePath
@@ -61,13 +63,10 @@ export async function renderHtml(resume: Resume, options: RenderHtmlOptions): Pr
     throw new Error('Could not find a default template. Provide one with --template.')
   })()
 
-  const summary =
-    resume.summaries[options.summaryKey] ?? resume.summaries.default ?? Object.values(resume.summaries)[0] ?? ''
-
   const html = Handlebars.compile(template)({
     ...resume,
     summaryKey: options.summaryKey,
-    summary,
+    summary: resolveSummary(resume, options.summaryKey),
     skillsOrdered: buildSkillsOrdered(resume),
   })
 

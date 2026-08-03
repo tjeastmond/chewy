@@ -53,3 +53,7 @@ export const ResumeSchema = z
   .strict()
 
 export type Resume = z.infer<typeof ResumeSchema>
+
+export function resolveSummary(resume: Resume, summaryKey: string): string {
+  return resume.summaries[summaryKey] ?? resume.summaries.default ?? Object.values(resume.summaries)[0] ?? ''
+}

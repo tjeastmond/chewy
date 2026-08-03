@@ -13,6 +13,8 @@ import { sanitizeAscii } from './utils/sanitizeAscii.js'
 
 type Format = 'html' | 'pdf' | 'json' | 'csv' | 'yaml' | 'txt'
 
+const ALL_FORMATS: Format[] = ['html', 'pdf', 'json', 'csv', 'yaml', 'txt']
+
 type CliArgs = {
   input?: string
   outDir?: string
@@ -23,7 +25,7 @@ type CliArgs = {
 
 function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = {
-    formats: ['html', 'pdf', 'json', 'csv', 'yaml', 'txt'],
+    formats: ALL_FORMATS,
     summaryKey: 'default',
   }
 
@@ -33,10 +35,12 @@ function parseArgs(argv: string[]): CliArgs {
     if (a === '--out-dir' || a === '-o') args.outDir = readRequiredArgValue(argv, i)
     if (a === '--format' || a === '-f') {
       const v = readRequiredArgValue(argv, i)
-      args.formats =
-        v === 'all'
-          ? ['html', 'pdf', 'json', 'csv', 'yaml', 'txt']
-          : (v.split(',').map((s) => s.trim().toLowerCase()) as Format[])
+      const parsed = v === 'all' ? ALL_FORMATS : v.split(',').map((s) => s.trim().toLowerCase())
+      const invalid = parsed.filter((f) => !ALL_FORMATS.includes(f as Format))
+      if (invalid.length > 0) {
+        throw new Error(`Invalid format(s): ${invalid.join(', ')}. Valid: ${ALL_FORMATS.join(', ')}`)
+      }
+      args.formats = parsed as Format[]
     }
     if (a === '--summary') args.summaryKey = readRequiredArgValue(argv, i)
     if (a === '--template') args.template = readRequiredArgValue(argv, i)
@@ -133,7 +137,7 @@ async function exportAll(
     { format: 'json', render: exportJson },
     { format: 'yaml', render: exportYaml },
     { format: 'csv', render: exportCsv },
-    { format: 'txt', render: exportText },
+    { format: 'txt', render: (r) => exportText(r, args.summaryKey) },
   ]
 
   for (const writer of fileWriters) {
@@ -208,14 +212,12 @@ function FilenamePrompt({
         <Text color="#ff8c00">CHEWY</Text> . Resume: {resumeFileName}
       </Text>
       <Box flexDirection="column" gap={0}>
-        <Box flexDirection="column" gap={0}>
-          <Box borderTop borderBottom borderStyle="single" borderColor="#3b82f6" paddingX={1} paddingY={0}>
-            <Text>
-              <Text color="#93c5fd">&gt; </Text>
-              <Text color={isUsingDefault ? 'gray' : undefined}>{shown}</Text>
-              <Text backgroundColor="#3b82f6"> </Text>
-            </Text>
-          </Box>
+        <Box borderTop borderBottom borderStyle="single" borderColor="#3b82f6" paddingX={1} paddingY={0}>
+          <Text>
+            <Text color="#93c5fd">&gt; </Text>
+            <Text color={isUsingDefault ? 'gray' : undefined}>{shown}</Text>
+            <Text backgroundColor="#3b82f6"> </Text>
+          </Text>
         </Box>
       </Box>
       <Text color="gray">Press Enter to continue, Esc to exit</Text>
@@ -404,5 +406,13 @@ function App({ argv }: { argv: string[] }) {
 }
 
 export function runCli(argv = process.argv.slice(2)) {
+  try {
+    parseArgs(argv)
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e)
+    process.stderr.write(`ERROR: ${sanitizeAscii(message)}\n`)
+    process.exit(1)
+  }
+
   render(<App argv={argv} />)
 }

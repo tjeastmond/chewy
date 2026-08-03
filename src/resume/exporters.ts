@@ -1,6 +1,7 @@
 import YAML from 'yaml'
 
 import type { Resume } from './schema.js'
+import { resolveSummary } from './schema.js'
 import { flattenToRows } from '../utils/flatten.js'
 import { sanitizeAscii } from '../utils/sanitizeAscii.js'
 
@@ -30,7 +31,7 @@ export function exportCsv(resume: Resume): string {
   return sanitizeAscii(`${lines.join('\n')}\n`)
 }
 
-export function exportText(resume: Resume): string {
+export function exportText(resume: Resume, summaryKey = 'default'): string {
   const lines: string[] = []
 
   lines.push(resume.name)
@@ -46,7 +47,7 @@ export function exportText(resume: Resume): string {
   lines.push('')
 
   lines.push('SUMMARY')
-  lines.push(resume.summaries.default ?? Object.values(resume.summaries)[0] ?? '')
+  lines.push(resolveSummary(resume, summaryKey))
   lines.push('')
 
   lines.push('SKILLS')

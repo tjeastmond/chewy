@@ -96,6 +96,8 @@ Chewy requires a TTY terminal and prompts for output filename (without extension
 
 If you press Enter, it uses the input filename.
 
+Before exporting, Chewy saves a timestamped backup of your input JSON to `./history/` (for example `history/1739188800_resume.json`).
+
 Example: input `resume.json`, selected formats `html,pdf`:
 
 - `out/resume.html`

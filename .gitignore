@@ -38,6 +38,9 @@ coverage/
 # package-lock.json
 # yarn.lock
 
+# Local scratch
+tmp/
+
 # Misc
 *.tgz
 
