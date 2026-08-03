@@ -49,6 +49,8 @@ export const ResumeSchema = z
     skills: SkillsSchema,
     role_targets: RoleTargetsSchema.optional(),
     projects: z.array(z.unknown()).default([]),
+    career_highlights: z.array(z.string()).default([]),
+    earlier_experience: z.array(ExperienceItemSchema).default([]),
   })
   .strict()
 

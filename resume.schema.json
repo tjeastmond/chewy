@@ -79,6 +79,30 @@
     "projects": {
       "type": "array",
       "items": {}
+    },
+    "career_highlights": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "earlier_experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["company", "role", "start", "end", "dates_display", "location", "highlights"],
+        "properties": {
+          "company": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "start": { "type": "string", "minLength": 1 },
+          "end": { "type": ["string", "null"] },
+          "dates_display": { "type": "string", "minLength": 1 },
+          "location": { "type": "string", "minLength": 1 },
+          "highlights": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
     }
   }
 }
