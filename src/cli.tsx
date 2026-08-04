@@ -8,6 +8,7 @@ import { exportCsv, exportJson, exportText, exportYaml } from './resume/exporter
 import { exportPdfFromHtml } from './resume/exportPdf.js'
 import { renderHtml } from './resume/renderHtml.js'
 import { readRequiredArgValue } from './utils/argv.js'
+import { clearOutDir } from './utils/clearOutDir.js'
 import { sanitizeBaseName } from './utils/sanitizeBaseName.js'
 import { sanitizeAscii } from './utils/sanitizeAscii.js'
 
@@ -405,7 +406,55 @@ function App({ argv }: { argv: string[] }) {
   )
 }
 
-export function runCli(argv = process.argv.slice(2)) {
+function parseCleanArgs(argv: string[]): { outDir: string } {
+  let outDir = 'out'
+
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i]
+    if (a === '--out-dir' || a === '-o') {
+      outDir = readRequiredArgValue(argv, i)
+      i++
+    } else if (a === '--help' || a === '-h') {
+      // Help is handled by bin/chewy before runCli is invoked.
+      continue
+    } else if (a.startsWith('-')) {
+      throw new Error(`Unknown option for clean: ${a}`)
+    } else {
+      throw new Error(`Unexpected argument for clean: ${a}`)
+    }
+  }
+
+  return { outDir }
+}
+
+async function runCleanCommand(argv: string[]): Promise<void> {
+  const { outDir: outDirArg } = parseCleanArgs(argv)
+  const outDir = path.resolve(process.cwd(), outDirArg)
+  const removed = await clearOutDir(outDir)
+
+  if (removed.length === 0) {
+    process.stdout.write(`Nothing to clean in ${outDir}\n`)
+    return
+  }
+
+  process.stdout.write(`Cleared ${removed.length} item(s) from ${outDir}\n`)
+  for (const p of removed) {
+    process.stdout.write(`- ${p}\n`)
+  }
+}
+
+export async function runCli(argv = process.argv.slice(2)) {
+  if (argv[0] === 'clean') {
+    try {
+      await runCleanCommand(argv.slice(1))
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e)
+      process.stderr.write(`ERROR: ${sanitizeAscii(message)}\n`)
+      process.exitCode = 1
+    }
+    return
+  }
+
   try {
     parseArgs(argv)
   } catch (e) {

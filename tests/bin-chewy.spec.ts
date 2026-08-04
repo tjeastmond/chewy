@@ -17,6 +17,7 @@ describe('bin/chewy', () => {
 
     expect(res.status).toBe(0)
     expect(res.stdout).toMatch(/Usage: chewy \[options\]/)
+    expect(res.stdout).toMatch(/chewy clean/)
     expect(res.stdout).toMatch(/--input/)
     expect(res.stdout).toMatch(/--format/)
   })

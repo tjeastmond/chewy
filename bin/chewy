@@ -8,10 +8,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const HELP_TEXT = `Usage: chewy [options]
+       chewy clean [options]
 
 Description:
   Export resume JSON into HTML, PDF, JSON, CSV, YAML, and TXT.
-  Requires a TTY terminal.
+  Requires a TTY terminal for export prompts.
+
+Commands:
+  clean                   Remove all files in the output directory
 
 Options:
   -h, --help              Show this help message
@@ -26,10 +30,16 @@ Examples:
   chewy --input ./resume.json
   chewy --input ./resume.json --format html,pdf --out-dir ./out
   chewy --input ./resume.json --summary backend
+  chewy clean
+  chewy clean --out-dir ./out
 `
 
 function wantsHelp(argv) {
   return argv.includes('--help') || argv.includes('-h')
+}
+
+function wantsClean(argv) {
+  return argv[0] === 'clean'
 }
 
 function maybeCreateOutDir(argv) {
@@ -56,12 +66,14 @@ if (!existsSync(distCliPath)) {
   console.error('\nchewy: missing build output at dist/cli.js\n\nRun: pnpm build\n')
   process.exitCode = 1
 } else {
-  maybeCreateOutDir(argv)
+  if (!wantsClean(argv)) {
+    maybeCreateOutDir(argv)
+  }
   const mod = await import(distCliPath)
   if (typeof mod.runCli !== 'function') {
     console.error('\nchewy: dist/cli.js did not export runCli()\n')
     process.exitCode = 1
   } else {
-    mod.runCli()
+    await mod.runCli()
   }
 }

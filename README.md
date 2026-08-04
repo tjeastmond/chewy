@@ -112,6 +112,20 @@ Example: input `resume.json`, selected formats `html,pdf`:
 - `--summary`: Summary key from `summaries`. Default: `default`.
 - `--template`: Custom Handlebars template path.
 
+### Clean output directory
+
+Remove all files in the output directory (default `./out`):
+
+```bash
+./bin/chewy clean
+```
+
+Clear a custom output directory:
+
+```bash
+./bin/chewy clean --out-dir ./dist/resume
+```
+
 ## PDF requirement
 
 PDF export requires a Chromium-based browser.

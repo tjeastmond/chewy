@@ -1,0 +1,1 @@
+- [ ] `tests/resume.spec.ts` fails `pnpm format:check` (Prettier); unrelated to clean command work
